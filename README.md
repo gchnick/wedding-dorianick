@@ -1,46 +1,30 @@
-# Astro Starter Kit: Basics
+# Wedding Web - Nick & Dorianni
 
-```sh
-pnpm create astro@latest -- --template basics
-```
+## 💍 Descripción del Proyecto
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Este proyecto consiste en el diseño y desarrollo de una página web de boda personalizada ("Wedding Site"). El objetivo es crear una experiencia digital elegante que sirva como invitación extendida, gestión de asistencia (RSVP) y álbum de recuerdos perdurable.
 
-## 🚀 Project Structure
+La web se centra en la simplicidad para el usuario, utilizando un sistema de autenticación sin fricción mediante tokens en la URL (QR codes) y una estética visual que refleja la identidad de la boda (Verde Turquesa/Menta y Gris Formal).
 
-Inside of your Astro project, you'll see the following folders and files:
+## 🚀 Funcionalidades Principales
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+1.  **RSVP Simplificado:** Confirmación de asistencia mediante escaneo de QR (JWT en URL).
+2.  **Invitación Multimedia:** Video de bienvenida de los novios.
+3.  **Logística:** Agenda, Mapas y Recomendaciones.
+4.  **Streaming:** Informacion y enlance con credenciales para ver el discurso en vivo vía Zoom.
+5.  **Memoria Digital:** Galería de fotos y presentación del cortejo.
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## 🛠 Tech Stack (TBD)
 
-## 🧞 Commands
+- **Frontend:** Astro / React
+- **Estilos:** Tailwind CSS /
+- **Backend/Server:** Astro Actions
+- **Base de Datos:** Turso
 
-All commands are run from the root of the project, from a terminal:
+## 📂 Estructura de Documentación
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+Para entender los detalles, consulta:
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- `PRD.md`: Requisitos de producto y casos de uso detallados.
+- `DESIGN_SYSTEM.md`: Guía de estilos, colores y tipografía.
+- `TECH_SPECS.md`: Especificaciones técnicas del flujo JWT y datos.
