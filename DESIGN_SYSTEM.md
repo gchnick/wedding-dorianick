@@ -9,7 +9,7 @@ Basada en la vestimenta de los novios y el cortejo.
 | **Primary Accent**   | `#40E0D0` (Turquesa Vibrante) | Botones (CTAs), Enlaces, Iconos destacados. | _Tono similar al moño/vestidos damas._ (Ajustar según imagen exacta) |
 | **Secondary Accent** | `#98FB98` (Menta Suave)       | Fondos de tarjetas suaves, hovers.          | _Variación pastel del acento._                                       |
 | **Neutral Dark**     | `#333333`                     | Texto principal, Títulos.                   | _Contraste legibilidad._                                             |
-| **Neutral Mid**      | `#808080`                     | Texto secundario, Bordes inactivos.         | _Gris traje del novio._                                              |
+| **Neutral Mid**      | `#4B5563`                     | Texto secundario, Bordes inactivos.         | _Gris oscuro para mejor lectura._                                    |
 | **Background**       | `#FFFFFF`                     | Fondo general de la página.                 | _Camisa novio / Limpieza._                                           |
 | **Background Alt**   | `#F5F5F5`                     | Fondo de secciones alternas.                | _Diferenciación visual._                                             |
 
