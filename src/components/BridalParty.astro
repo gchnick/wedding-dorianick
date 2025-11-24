@@ -1,0 +1,85 @@
+---
+import { Image } from "astro:assets";
+
+import daiwyImage from "@/assets/daiwy.webp";
+import yoraimaImage from "@/assets/yoraima.webp";
+import yordalisImage from "@/assets/yordalis.webp";
+
+const Girls = [
+  { name: "Yoraima Rámirez", role: "Amiga del novio", image: yoraimaImage },
+  { name: "Yordalis Benavides", role: "Amiga del novio", image: yordalisImage },
+  { name: "Nayan Macheref", role: "Amiga de la novia" },
+];
+
+const Boys = [
+  { name: "Luis Barco", role: "Amigo de la novia" },
+  { name: "Andrés Velázquez", role: "Amigo de la novia" },
+  { name: "Daiwy Rangel", role: "Amigo del novio", image: daiwyImage },
+];
+---
+
+<section class="py-20 bg-neutral-50" id="cortejo">
+  <div class="container mx-auto px-4 max-w-6xl text-center">
+    <h2 class="font-display text-3xl md:text-4xl text-neutral-dark mb-12">
+      Cortejo nupcial
+    </h2>
+
+    <div class="grid md:grid-cols-2 gap-16">
+      <!-- Girls -->
+      <div>
+        <h3 class="font-display text-2xl text-primary-accent mb-8">Amigas</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {
+            Girls.map((person) => (
+              <div class="flex flex-col items-center group">
+                <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-md mb-4 overflow-hidden border-2 border-transparent group-hover:border-primary-accent transition-colors">
+                  {person.image ? (
+                    <Image
+                      src={person.image}
+                      alt={person.name}
+                      class="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div class="w-full h-full bg-neutral-200 flex items-center justify-center text-neutral-400">
+                      <span class="text-xs">Foto</span>
+                    </div>
+                  )}
+                </div>
+                <h4 class="font-bold text-neutral-dark">{person.name}</h4>
+                <p class="text-sm text-neutral-mid">{person.role}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Boys -->
+      <div>
+        <h3 class="font-display text-2xl text-primary-accent mb-8">Amigos</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {
+            Boys.map((person) => (
+              <div class="flex flex-col items-center group">
+                <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-md mb-4 overflow-hidden border-2 border-transparent group-hover:border-primary-accent transition-colors">
+                  {person.image ? (
+                    <Image
+                      src={person.image}
+                      alt={person.name}
+                      class="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div class="w-full h-full bg-neutral-200 flex items-center justify-center text-neutral-400">
+                      <span class="text-xs">Foto</span>
+                    </div>
+                  )}
+                </div>
+                <h4 class="font-bold text-neutral-dark">{person.name}</h4>
+                <p class="text-sm text-neutral-mid">{person.role}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
