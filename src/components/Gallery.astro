@@ -1,0 +1,176 @@
+---
+import { Image } from "astro:assets";
+
+import couplePhoto1 from "@/assets/couple-main-photographic.webp";
+import commitment1 from "@/assets/commitment-1.webp";
+import commitment2 from "@/assets/commitment-2.webp";
+import commitment3 from "@/assets/commitment-3.webp";
+import commitment4 from "@/assets/commitment-4.webp";
+import commitment5 from "@/assets/couple-main-photographic-2.webp";
+import conventions1 from "@/assets/conventions-1.webp";
+import conventions2 from "@/assets/conventions-2.webp";
+import meetings1 from "@/assets/meetings-1.webp";
+import sharing1 from "@/assets/sharing-1.webp";
+import sharing2 from "@/assets/sharing-2.webp";
+
+// Simulating a gallery with repeated images for layout demonstration
+const photos = [
+  {
+    src: commitment1,
+    alt: "Un compromiso eterno en un lugar especial",
+    category: "compromiso",
+  },
+  {
+    src: commitment2,
+    alt: "Ponme como sello en tu corazón",
+    category: "compromiso",
+  },
+  {
+    src: commitment3,
+    alt: "Mirando al futuro de la mano de Jehová",
+    category: "compromiso",
+  },
+  {
+    src: commitment4,
+    alt: "Su lindo ramo, mensaje de amor y una promesa",
+    category: "compromiso",
+  },
+  { src: commitment5, alt: "Juntos como un equipo", category: "compromiso" },
+  {
+    src: couplePhoto1,
+    alt: "De visita para reducir la distancia",
+    category: "compartiendo",
+  },
+  {
+    src: conventions1,
+    alt: "Nunca dejamos que la distancia nos alejará",
+    category: "reuniones",
+  },
+  {
+    src: conventions2,
+    alt: "Juntos con Jehová en la asamblea",
+    category: "reuniones",
+  },
+  { src: sharing1, alt: "Foto 3", category: "compartiendo" },
+  {
+    src: meetings1,
+    alt: "Juntos con Jehová en la asamblea",
+    category: "reuniones",
+  },
+  { src: sharing2, alt: "Foto 3", category: "compartiendo" },
+];
+---
+
+<section class="py-20 bg-white" id="galeria">
+  <div class="container mx-auto px-4 max-w-6xl text-center">
+    <h2 class="font-display text-3xl md:text-4xl text-neutral-dark mb-12">
+      Galería
+    </h2>
+
+    <!-- Filter Chips -->
+    <div class="flex flex-wrap justify-center gap-4 mb-12">
+      <button
+        class="filter-btn active px-6 py-2 rounded-full border border-primary-accent bg-primary-accent text-white font-medium transition-all hover:shadow-md"
+        data-category="all"
+      >
+        Todos
+      </button>
+      <button
+        class="filter-btn px-6 py-2 rounded-full border border-neutral-200 text-neutral-mid font-medium transition-all hover:border-primary-accent hover:text-primary-accent hover:shadow-md"
+        data-category="compromiso"
+      >
+        Compromiso
+      </button>
+      <button
+        class="filter-btn px-6 py-2 rounded-full border border-neutral-200 text-neutral-mid font-medium transition-all hover:border-primary-accent hover:text-primary-accent hover:shadow-md"
+        data-category="boda"
+      >
+        Boda
+      </button>
+      <button
+        class="filter-btn px-6 py-2 rounded-full border border-neutral-200 text-neutral-mid font-medium transition-all hover:border-primary-accent hover:text-primary-accent hover:shadow-md"
+        data-category="predicacion"
+      >
+        Predicación
+      </button>
+      <button
+        class="filter-btn px-6 py-2 rounded-full border border-neutral-200 text-neutral-mid font-medium transition-all hover:border-primary-accent hover:text-primary-accent hover:shadow-md"
+        data-category="asambleas"
+      >
+        Reuniones
+      </button>
+      <button
+        class="filter-btn px-6 py-2 rounded-full border border-neutral-200 text-neutral-mid font-medium transition-all hover:border-primary-accent hover:text-primary-accent hover:shadow-md"
+        data-category="compartiendo"
+      >
+        Compartiendo
+      </button>
+    </div>
+
+    <!-- Masonry Grid with CSS Columns -->
+    <div class="columns-2 md:columns-3 gap-4 space-y-4" id="gallery-grid">
+      {
+        photos.map((photo) => (
+          <div
+            class="gallery-item relative rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 group break-inside-avoid"
+            data-category={photo.category}
+          >
+            <Image
+              src={photo.src}
+              alt={photo.alt}
+              class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500"
+            />
+            <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+              <span class="text-white text-xs font-bold uppercase tracking-wider bg-primary-accent/80 px-2 py-1 rounded">
+                {photo.category}
+              </span>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script lang="ts">
+  const filterBtns = document.querySelectorAll(".filter-btn");
+  const galleryItems = document.querySelectorAll(".gallery-item");
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      // Remove active class from all buttons
+      filterBtns.forEach((b) => {
+        b.classList.remove(
+          "bg-primary-accent",
+          "text-white",
+          "border-primary-accent"
+        );
+        b.classList.add("text-neutral-mid", "border-neutral-200");
+      });
+
+      // Add active class to clicked button
+      btn.classList.remove("text-neutral-mid", "border-neutral-200");
+      btn.classList.add(
+        "bg-primary-accent",
+        "text-white",
+        "border-primary-accent"
+      );
+
+      const category = btn.getAttribute("data-category");
+
+      galleryItems.forEach((item) => {
+        const itemCategory = item.getAttribute("data-category");
+        const element = item;
+
+        if (category === "all" || itemCategory === category) {
+          element.classList.remove("hidden");
+          // Add a small animation delay or class here if desired
+          element.style.display = "block";
+        } else {
+          element.classList.add("hidden");
+          element.style.display = "none";
+        }
+      });
+    });
+  });
+</script>
