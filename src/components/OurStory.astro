@@ -1,0 +1,125 @@
+---
+import { Image } from "astro:assets";
+
+import ourStory1 from "@/assets/our-story-1.webp";
+import ourStory2 from "@/assets/our-story-2.webp";
+---
+
+<section class="py-20 bg-white" id="nuestra-historia">
+  <div class="container mx-auto px-4 max-w-6xl">
+    <div class="flex flex-col md:flex-row items-center gap-12">
+      <!-- Image Side -->
+      <div class="w-full md:w-1/2 flex justify-center">
+        <div
+          class="relative w-full max-w-md aspect-3/4 cursor-pointer group"
+          id="story-photo-container"
+        >
+          <!-- Background decoration -->
+          <div
+            class="absolute inset-0 bg-primary-accent/10 transform translate-x-4 translate-y-4 rounded-lg -z-10"
+          >
+          </div>
+
+          <!-- Bottom Photo (Initially) -->
+          <div
+            class="absolute inset-0 transition-all duration-700 ease-in-out transform rotate-3 scale-95 opacity-80"
+            id="photo-bottom"
+          >
+            <Image
+              src={ourStory2}
+              alt="Dorianni & Nick - Foto 2"
+              class="w-full h-full object-cover rounded-lg shadow-lg"
+            />
+          </div>
+
+          <!-- Top Photo (Initially) -->
+          <div
+            class="absolute inset-0 transition-all duration-700 ease-in-out transform -rotate-2 z-10 shadow-xl"
+            id="photo-top"
+          >
+            <Image
+              src={ourStory1}
+              alt="Dorianni & Nick - Foto 1"
+              class="w-full h-full object-cover object-right rounded-lg"
+            />
+          </div>
+
+          <!-- Hint -->
+          <div
+            class="absolute -bottom-8 left-0 right-0 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          >
+            <span class="text-sm text-neutral-mid italic"
+              >Click para cambiar foto</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <script>
+        const container = document.getElementById("story-photo-container");
+        const photoTop = document.getElementById("photo-top");
+        const photoBottom = document.getElementById("photo-bottom");
+
+        let isSwapped = false;
+
+        container?.addEventListener("click", () => {
+          isSwapped = !isSwapped;
+
+          if (isSwapped) {
+            // Swap animation
+            photoTop?.classList.remove("-rotate-2", "z-10", "shadow-xl");
+            photoTop?.classList.add(
+              "rotate-3",
+              "scale-95",
+              "opacity-80",
+              "z-0"
+            );
+
+            photoBottom?.classList.remove("rotate-3", "scale-95", "opacity-80");
+            photoBottom?.classList.add("-rotate-2", "z-10", "shadow-xl");
+          } else {
+            // Revert animation
+            photoTop?.classList.add("-rotate-2", "z-10", "shadow-xl");
+            photoTop?.classList.remove(
+              "rotate-3",
+              "scale-95",
+              "opacity-80",
+              "z-0"
+            );
+
+            photoBottom?.classList.add("rotate-3", "scale-95", "opacity-80");
+            photoBottom?.classList.remove("-rotate-2", "z-10", "shadow-xl");
+          }
+        });
+      </script>
+
+      <!-- Text Side -->
+      <div class="w-full md:w-1/2 text-center md:text-left">
+        <h2 class="font-display text-3xl md:text-4xl text-neutral-dark mb-6">
+          Nuestra Historia
+        </h2>
+        <div class="space-y-4 text-neutral-mid font-light leading-relaxed">
+          <p>
+            Todo comenzó con una coincidencia inesperada, una mirada y una
+            sonrisa que lo cambió todo. Desde ese primer momento, supimos que
+            había algo especial entre nosotros.
+          </p>
+          <p>
+            A lo largo de los años, hemos compartido risas, aventuras, desafíos
+            y sueños. Hemos crecido juntos, aprendiendo el uno del otro y
+            construyendo una base sólida de amor y respeto.
+          </p>
+          <p>
+            Hoy, estamos emocionados de dar el siguiente paso en nuestro viaje y
+            celebrar nuestro amor con las personas que más queremos. ¡Gracias
+            por ser parte de nuestra historia!
+          </p>
+        </div>
+
+        <div class="mt-8">
+          <span class="font-display text-2xl text-primary-accent">D & N</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
