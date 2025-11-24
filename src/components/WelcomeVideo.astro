@@ -1,0 +1,43 @@
+---
+import { Image } from "astro:assets";
+// Placeholder for video thumbnail if needed
+// import videoThumbnail from "@/assets/video-thumbnail.jpg";
+---
+
+<section class="py-20 bg-neutral-50">
+  <div class="container mx-auto px-4 max-w-4xl text-center">
+    <h2 class="font-display text-3xl md:text-4xl text-neutral-dark mb-8">
+      Bienvenidos
+    </h2>
+
+    <div
+      class="relative aspect-video bg-neutral-200 rounded-lg shadow-xl overflow-hidden group cursor-pointer"
+    >
+      <!-- Placeholder for actual video implementation -->
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div
+          class="w-16 h-16 bg-white/80 rounded-full flex items-center justify-center pl-1 shadow-lg group-hover:scale-110 transition-transform duration-300"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-8 w-8 text-primary-accent"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+              clip-rule="evenodd"></path>
+          </svg>
+        </div>
+      </div>
+      <p class="absolute bottom-4 left-0 right-0 text-neutral-mid text-sm">
+        Video de bienvenida próximamente
+      </p>
+    </div>
+
+    <p class="mt-8 text-neutral-mid font-light text-lg">
+      Estamos muy felices de compartir este día con ustedes.
+    </p>
+  </div>
+</section>
