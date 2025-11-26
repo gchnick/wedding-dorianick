@@ -2,7 +2,6 @@
 import { Image } from "astro:assets";
 
 import coupleMainPhoto from "@/assets/couple-main-photographic-2.webp";
-import coupleNames from "@/assets/couple-names.svg";
 ---
 
 <section
@@ -27,11 +26,18 @@ import coupleNames from "@/assets/couple-names.svg";
       Nos Casamos
     </p>
 
-    <Image
-      src={coupleNames}
-      alt="Dorianni & Nick"
-      class="w-full max-w-2xl h-auto mb-10 invert brightness-0 filter drop-shadow-lg"
-    />
+    <div class="couple-names-wrapper relative inline-block z-10 w-full">
+      <img
+        src="/couple-names.svg"
+        alt="Dorianni & Nick"
+        class="invert brightness-0 select-none"
+      />
+      <img
+        src="/couple-names.svg"
+        alt="Dorianni & Nick"
+        class="pulse absolute top-0 left-0 -z-10 inline-block invert brightness-0 filter opacity-50 blur-sm select-none"
+      />
+    </div>
 
     <p class="font-body text-lg md:text-xl mb-12 font-light">
       Celebra con nosotros este momento tan especial.
@@ -66,3 +72,39 @@ import coupleNames from "@/assets/couple-names.svg";
     </svg>
   </div>
 </section>
+
+<style>
+  @keyframes pulse {
+    0% {
+      opacity: 0.5;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.75;
+      transform: scale(1.02);
+    }
+    100% {
+      opacity: 0.5;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .pulse {
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  .couple-names-wrapper {
+    animation: float 5s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(64, 224, 208, 0.4));
+  }
+</style>
