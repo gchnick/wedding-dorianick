@@ -1,0 +1,16 @@
+{
+  "main": "dist/_worker.js/index.js",
+  "name": "wedding-dorianick",
+  "compatibility_date": "2025-11-25",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "./dist"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "vars": {
+    "ASTRO_DB_REMOTE_URL": "libsql://insurance-globalinsurance.aws-us-west-2.turso.io"
+  }
+}
