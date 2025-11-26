@@ -1,0 +1,98 @@
+<div id="fireflies-container" aria-hidden="true"></div>
+
+<script>
+  if (typeof window !== "undefined") {
+    const initFireflies = () => {
+      const container = document.getElementById("fireflies-container");
+      if (!container || container.hasChildNodes()) return;
+
+      const numFireflies = window.innerWidth < 768 ? 20 : 40;
+
+      for (let i = 0; i < numFireflies; i++) {
+        const firefly = document.createElement("div");
+        firefly.className = "firefly";
+
+        // Random starting position
+        const left = Math.random() * 100;
+        const top = Math.random() * 100;
+
+        // Random properties for animation
+        const duration = (10 + Math.random() * 10).toFixed(2) + "s"; // Slower movement
+        const delay = (Math.random() * 5).toFixed(2) + "s";
+        const scale = (0.5 + Math.random() * 0.5).toFixed(2); // Random size
+
+        // Random movement path
+        const x1 = (Math.random() * 100 - 50).toFixed(0) + "vw";
+        const y1 = (Math.random() * 100 - 50).toFixed(0) + "vh";
+        const x2 = (Math.random() * 100 - 50).toFixed(0) + "vw";
+        const y2 = (Math.random() * 100 - 50).toFixed(0) + "vh";
+
+        firefly.style.left = `${left}vw`;
+        firefly.style.top = `${top}vh`;
+        firefly.style.setProperty("--duration", duration);
+        firefly.style.setProperty("--delay", delay);
+        firefly.style.setProperty("--scale", scale);
+
+        firefly.style.setProperty("--x1", x1);
+        firefly.style.setProperty("--y1", y1);
+        firefly.style.setProperty("--x2", x2);
+        firefly.style.setProperty("--y2", y2);
+
+        container.appendChild(firefly);
+      }
+    };
+
+    document.addEventListener("DOMContentLoaded", initFireflies);
+  }
+</script>
+
+<style>
+  #fireflies-container {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 50; /* High z-index to be on top */
+  }
+
+  :global(.firefly) {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: var(--color-primary-accent);
+    border-radius: 50%;
+    box-shadow: 0 0 10px 2px var(--color-primary-accent);
+    opacity: 0;
+    will-change: transform, opacity;
+    animation:
+      fly var(--duration) ease-in-out infinite alternate,
+      flash 3s ease-in-out infinite;
+    animation-delay: var(--delay);
+    transform: scale(var(--scale));
+  }
+
+  @keyframes fly {
+    0% {
+      transform: translate(0, 0) scale(var(--scale));
+    }
+    33% {
+      transform: translate(var(--x1), var(--y1)) scale(var(--scale));
+    }
+    66% {
+      transform: translate(var(--x2), var(--y2)) scale(var(--scale));
+    }
+    100% {
+      transform: translate(0, 0) scale(var(--scale));
+    }
+  }
+
+  @keyframes flash {
+    0%,
+    100% {
+      opacity: 0.2;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+</style>
