@@ -169,6 +169,16 @@ const isInternalNavigation = previousPage?.includes(Astro.url.origin);
     }
   }
 
+  /* Hide scrollbar for Chrome, Safari, and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge, and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
   @prefers-reduced-motion {
     #mask {
       animation: none !important;
@@ -183,5 +193,5 @@ const isInternalNavigation = previousPage?.includes(Astro.url.origin);
 
 <script>
   const maskEl = document.querySelector("#mask");
-  maskEl?.classList.add("animated");
+  maskEl?.classList.add("animated", "no-scrollbar");
 </script>
