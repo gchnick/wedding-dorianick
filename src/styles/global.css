@@ -44,5 +44,13 @@
   h6 {
     font-family: var(--font-display);
     font-weight: 700;
+    text-wrap: balance;
+  }
+
+  p {
+    font-family: var(--font-body);
+    font-weight: 400;
+    /* margin-block: 1lh; */
+    text-wrap: pretty;
   }
 }
