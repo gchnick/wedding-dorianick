@@ -1,15 +1,16 @@
 ---
+import { GuestBookSection } from "@/components/GuestBookSection";
 import { RsvpForm } from "@/components/RsvpForm";
 import Accommodation from "@/components/Accommodation.astro";
 import BridalParty from "@/components/BridalParty.astro";
 import Gallery from "@/components/Gallery.astro";
 import Hero from "@/components/Hero.astro";
 import Layout from "@/layouts/Layout.astro";
+import LiveStream from "@/components/LiveStream.astro";
 import Location from "@/components/Location.astro";
 import OurStory from "@/components/OurStory.astro";
 import Timeline from "@/components/Timeline.astro";
 import WelcomeVideo from "@/components/WelcomeVideo.astro";
-import LiveStream from "@/components/LiveStream.astro";
 ---
 
 <Layout>
@@ -23,4 +24,5 @@ import LiveStream from "@/components/LiveStream.astro";
   <OurStory />
   <BridalParty />
   <Gallery />
+  <GuestBookSection client:load />
 </Layout>
