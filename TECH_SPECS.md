@@ -86,3 +86,18 @@ CREATE TABLE guests (
 - **Mobile:** < 768px (Menú hamburguesa, columnas colapsan a 1).
 - **Desktop:** > 768px (Menú horizontal, grids de 2-3 columnas).
 ```
+
+## 🌳 Especificaciones del Wedding Guest Book (Árbol)
+
+- **Frontend Rendering:** Se recomienda usar **SVG interactivo** o una librería de Canvas ligero (como Konva.js o simplemente CSS Positioning absoluto sobre un container relativo).
+- **Posicionamiento de Hojas:**
+
+  - _Opción A (Aleatoria Controlada):_ El frontend calcula una posición aleatoria dentro de coordenadas predefinidas (zonas de ramas) para que no queden flotando en el aire.
+  - _Opción B (Pre-definida):_ Tener 50-100 "slots" (coordenadas x,y) invisibles sobre las ramas. Al llegar un mensaje, ocupa el siguiente slot disponible.
+
+- **Schema de Base de Datos (Tabla: `guestbook_messages`):**
+  - `id`: UUID
+  - `guest_name`: String
+  - `message`: String (Text)
+  - `leaf_color`: Enum/String (Para variar entre turquesa/menta/crema)
+  - `created_at`: Timestamp

@@ -36,3 +36,14 @@ Basada en la vestimenta de los novios y el cortejo.
 
 - Minimalista. Sin controles intrusivos antes de reproducir.
 - Marco o borde delgado en `Primary Accent`.
+
+### Componente: Árbol (Wedding Guest Book)
+
+- **Estilo de Ilustración:** Minimalista, líneas finas, estilo acuarela o dibujo a tinta vectorial (SVG).
+- **Tronco/Ramas:** Color Gris Pizarra (`#505050`) o Marrón muy desaturado.
+- **Las Hojas (Firmas):**
+  - Deben usar variantes de la paleta de colores para dar profundidad.
+  - **Color A:** `Primary Accent` (#40E0D0 - Turquesa).
+  - **Color B:** `Secondary Accent` (#98FB98 - Menta).
+  - **Color C:** `Cream/Gold` (#FFFACD - Para contraste cálido).
+- **Animación:** Efecto de "aparición" (Fade-in + Scale-up) cuando se carga una nueva hoja.
