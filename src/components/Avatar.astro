@@ -1,0 +1,29 @@
+---
+import { Image } from "astro:assets";
+
+type Props = {
+  name: string;
+  role: string;
+  photo?: ImageMetadata;
+};
+
+const { name, role, photo } = Astro.props;
+---
+
+<div class="flex flex-col items-center group">
+  <div
+    class="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-md mb-4 overflow-hidden border-2 border-transparent group-hover:border-primary-accent transition-colors"
+  >
+    {
+      photo ? (
+        <Image src={photo} alt={name} class="w-full h-full object-cover" />
+      ) : (
+        <div class="w-full h-full bg-neutral-200 flex items-center justify-center text-neutral-400">
+          <span class="text-xs">Foto</span>
+        </div>
+      )
+    }
+  </div>
+  <h4 class="font-bold text-neutral-dark">{name}</h4>
+  <p class="text-sm text-neutral-mid">{role}</p>
+</div>
