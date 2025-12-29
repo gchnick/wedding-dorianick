@@ -3,6 +3,8 @@ import { Image } from "astro:assets";
 
 import Buttom from "@/components/Buttom.astro";
 import coupleMainPhoto from "@/assets/couple-main-photographic-2.webp";
+import Paragraph from "@/components/Paragraph.astro";
+import Typography from "@/components/Typography.astro";
 ---
 
 <section
@@ -21,13 +23,11 @@ import coupleMainPhoto from "@/assets/couple-main-photographic-2.webp";
 
   <!-- Content -->
   <div
-    class="relative z-10 text-center text-white px-4 max-w-4xl mx-auto flex flex-col items-center"
+    class="relative z-10 text-center text-white px-4 max-w-4xl mx-auto flex flex-col items-center select-none"
   >
-    <p class="font-display text-xl md:text-2xl mb-8 tracking-widest uppercase">
-      Nos Casamos
-    </p>
+    <Typography as="h2" variant="subtitle1" class="select-none"> ¡Nos casamos!</Typography>
 
-    <div class="couple-names-wrapper relative inline-block z-10 w-full">
+    <div class="couple-names-wrapper relative inline-block z-10 w-full select-none">
       <img
         src="/couple-names.svg"
         alt="Dorianni & Nick"
@@ -40,9 +40,9 @@ import coupleMainPhoto from "@/assets/couple-main-photographic-2.webp";
       />
     </div>
 
-    <p class="font-body text-lg md:text-xl mb-12 font-light">
+    <Paragraph class="mb-12 select-none">
       Celebra con nosotros este momento tan especial.
-    </p>
+    </Paragraph>
 
     <div id="hero-cta">
       <!-- CTA will be injected here or handled by RsvpForm below -->
