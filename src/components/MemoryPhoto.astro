@@ -1,0 +1,108 @@
+---
+import { Image } from "astro:assets";
+
+import pionnerMeeting from "@/assets/pionner_meeting.webp";
+---
+
+<div class="mt-12 mb-8 flex justify-center md:justify-start">
+  <div
+    class="relative max-w-[280px] md:max-w-[400px] bg-[#fffdf5] p-4 shadow-xl transform rotate-2 hover:-rotate-1 transition-transform duration-300 group cursor-pointer"
+    id="memory-photo-container"
+  >
+    <div class="relative overflow-hidden">
+      <Image
+        src={pionnerMeeting}
+        alt="Recuerdo de nuestra primera reunión"
+        class="w-full h-auto filter sepia-[0.15]"
+      />
+
+      <!-- Spotlight Overlay -->
+      <div
+        class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+      >
+        <svg
+          class="w-full h-full"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+        >
+          <defs>
+            <mask id="spotlight-mask">
+              <!-- Entire area white (visible) -->
+              <rect x="0" y="0" width="100" height="100" fill="white"></rect>
+              <!-- Spots black (hidden -> transparent in the overlay) -->
+              <!-- Update cx, cy, and r values to position the spotlights -->
+              <ellipse
+                cx="32"
+                cy="33"
+                rx="5"
+                ry="5"
+                fill="black"
+                class="spotlight"></ellipse>
+              <ellipse
+                cx="13"
+                cy="35"
+                rx="5"
+                ry="5"
+                fill="black"
+                class="spotlight"></ellipse>
+            </mask>
+          </defs>
+          <!-- Black overlay using the mask -->
+          <rect
+            x="0"
+            y="0"
+            width="100"
+            height="100"
+            fill="black"
+            fill-opacity="0.6"
+            mask="url(#spotlight-mask)"></rect>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const container = document.getElementById("memory-photo-container");
+
+  function updateSpotlightShape() {
+    if (!container) return;
+    const width = container.offsetWidth;
+    const height = container.offsetHeight;
+    if (height === 0) return;
+
+    // Calculate aspect ratio to make ellipses look like circles
+    const ratio = width / height;
+    const spotlights = container.querySelectorAll(".spotlight");
+
+    spotlights.forEach((el) => {
+      // Use 'rx' as the base unit (percentage of width)
+      // We want the physical visual height to match physical visual width.
+      // ry (units) * height/100 (px/unit) = rx (units) * width/100 (px/unit)
+      // ry = rx * (width / height)
+
+      const rx = parseFloat(el.getAttribute("rx") || "5");
+      const ry = rx * ratio;
+      el.setAttribute("ry", ry.toString());
+    });
+  }
+
+  // Run on load and resize
+  window.addEventListener("load", updateSpotlightShape);
+  window.addEventListener("resize", updateSpotlightShape);
+  // Run immediately in case
+  updateSpotlightShape();
+
+  // Handle touch start to toggle effect on mobile
+  container?.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    container.classList.toggle("is-active");
+  });
+</script>
+
+<style>
+  /* Support for manual class toggle usually needed for reliable mobile touch */
+  #memory-photo-container.is-active .group-hover\:opacity-100 {
+    opacity: 1;
+  }
+</style>
