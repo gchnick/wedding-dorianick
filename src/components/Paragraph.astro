@@ -1,0 +1,19 @@
+---
+import Typography from "@/components/Typography.astro";
+
+type Props = {
+  class?: string;
+  dark?: boolean;
+};
+
+const { class: clazz, dark } = Astro.props;
+---
+
+<Typography
+  as="p"
+  variant="subtitle2"
+  color={dark ? "neutral" : "white"}
+  class:list={["mb-12 mx-auto", clazz]}
+>
+  <slot />
+</Typography>
