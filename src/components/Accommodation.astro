@@ -1,23 +1,22 @@
 ---
 import { Image } from "astro:assets";
 
+import Anchor from "@/components/Anchor.astro";
 import iconBus from "@/assets/icons/bus-duotone.svg";
+import Title from "@/components/Title.astro";
 ---
 
-<section class="py-20 bg-white" id="hospedaje">
+<Anchor id="accommodation" />
+<section class="py-20 bg-white">
   <div class="container mx-auto px-4 max-w-4xl">
-    <h2
-      class="font-display text-3xl md:text-4xl text-neutral-dark text-center mb-12"
-    >
-      Hospedaje y Transporte
-    </h2>
+    <Title>Hospedaje y transporte</Title>
 
     <div class="grid md:grid-cols-2 gap-8 mb-16">
       <!-- Hotel 1 -->
       <div
         class="bg-neutral-50 p-8 rounded-xl shadow-sm border border-neutral-100 hover:shadow-md transition-shadow"
       >
-        <h3 class="font-display text-xl text-neutral-dark mb-2">
+        <h3 class="font-body font-semibold text-neutral-500 text-xl mb-2">
           Hotel Principal
         </h3>
         <p class="text-neutral-mid mb-4">Gran Hotel Ciudad de México</p>
@@ -35,7 +34,7 @@ import iconBus from "@/assets/icons/bus-duotone.svg";
       <div
         class="bg-neutral-50 p-8 rounded-xl shadow-sm border border-neutral-100 hover:shadow-md transition-shadow"
       >
-        <h3 class="font-display text-xl text-neutral-dark mb-2">
+        <h3 class="font-body font-semibold text-neutral-500 text-xl mb-2">
           Hotel Alternativo
         </h3>
         <p class="text-neutral-mid mb-4">Hampton Inn & Suites</p>
