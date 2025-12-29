@@ -1,10 +1,12 @@
 ---
 import { Image } from "astro:assets";
 
+import Anchor from "@/components/Anchor.astro";
 import iconCeremony from "@/assets/icons/kindom-hall.svg";
-import iconToast from "@/assets/icons/champagne-duotone.svg";
 import iconDinner from "@/assets/icons/cookie-duotone.svg";
 import iconParty from "@/assets/icons/confetti-duotone.svg";
+import iconToast from "@/assets/icons/champagne-duotone.svg";
+import Title from "@/components/Title.astro";
 
 const events = [
   {
@@ -34,11 +36,12 @@ const events = [
 ];
 ---
 
-<section class="py-20 bg-white" id="agenda">
+<Anchor id="itinerary"/>
+<section class="py-20 bg-white">
   <div class="container mx-auto px-4 max-w-4xl">
-    <h2 class="font-display text-3xl md:text-4xl text-neutral-dark text-center mb-16">
+    <Title>
       Itinerario
-    </h2>
+    </Title>
 
     <div class="relative">
       <!-- Vertical Line -->
@@ -51,9 +54,9 @@ const events = [
             <!-- Content -->
             <div class="w-5/12 text-center md:text-left"> <!-- Adjusted alignment for better mobile/desktop handling, might need refinement -->
                <div class={`p-6 bg-neutral-50 rounded-lg shadow-sm border border-neutral-100 ${index % 2 === 0 ? 'md:text-left' : 'md:text-right'}`}>
-                <span class="block text-primary-accent font-bold text-lg mb-1">{event.time}</span>
-                <h3 class="font-display text-xl text-neutral-dark mb-2">{event.title}</h3>
-                <p class="text-neutral-mid text-sm">{event.description}</p>
+                <span class="font-body block text-primary-accent font-bold text-lg mb-1">{event.time}</span>
+                <h3 class="font-body font-semibold text-xl text-neutral-500 mb-2">{event.title}</h3>
+                <p class="font-body text-neutral-mid text-sm">{event.description}</p>
               </div>
             </div>
 
