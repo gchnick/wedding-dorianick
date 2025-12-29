@@ -1,7 +1,8 @@
 ---
+import { weddingDateString, weddingDate } from "@/constans/const";
+import Fireflies from "@/components/Fireflies.astro";
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
-import Fireflies from "@/components/Fireflies.astro";
 
 import "@/styles/global.css";
 
@@ -12,7 +13,7 @@ export type Props = {
 
 const defaultTitle = "Save the Date: Dorianni & Nick";
 const defaultDescription =
-  "Acompáñanos a celebrar nuestro amor el 15 de junio de 2024 en Sabaneta, Barinas.";
+  `Acompáñanos a celebrar nuestro amor el ${weddingDateString} en Sabaneta, Barinas.`;
 
 let { title, description } = Astro.props;
 
@@ -32,16 +33,16 @@ const isInternalNavigation = previousPage?.includes(Astro.url.origin);
 
     <link
       rel="preload"
-      href="/fonts/montserrat.woff"
+      href="/fonts/greatvibes-regular.woff2"
       as="font"
-      type="font/woff"
+      type="font/woff2"
       crossorigin="anonymous"
     />
     <link
       rel="preload"
-      href="/fonts/playfairdisplay.woff"
+      href="/fonts/lora-variablefont.woff2"
       as="font"
-      type="font/woff"
+      type="font/woff2"
       crossorigin="anonymous"
     />
 
@@ -75,8 +76,8 @@ const isInternalNavigation = previousPage?.includes(Astro.url.origin);
         "@type": "WeddingEvent",
         "name": "Boda de Dorianni & Nick",
         "url": "https://www.dorianick.com",
-        "description": "Acompáñanos a celebrar nuestro amor el 15 de junio de 2024 en Sabaneta, Barinas.",
-        "startDate": "2024-06-15T19:00:00",
+        "description": `Acompáñanos a celebrar nuestro amor el ${weddingDateString} en Sabaneta, Barinas.`,
+        "startDate": weddingDate,
         "eventStatus": "https://schema.org/EventScheduled",
         "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
         "location": {
