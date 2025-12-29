@@ -31,7 +31,7 @@ export function RsvpForm() {
   if (!auth) {
     return (
       <div className="text-center py-12 px-4 bg-neutral-50 rounded-lg shadow-sm max-w-md mx-auto mt-8">
-        <p className="text-neutral-mid font-body">
+        <p className="font-body font-light text-neutral-mid">
           Por favor, escanea el código QR de tu invitación para confirmar
           asistencia.
         </p>
