@@ -1,32 +1,24 @@
 ---
-
+import { weddingDateStringWithDay } from "@/constans/const";
+import Anchor from "@/components/Anchor.astro";
+import LiveStreamIcon from "@/assets/icons/live-stream.svg";
+import Paragraph from "@/components/Paragraph.astro";
+import Title from "@/components/Title.astro";
 ---
 
-<section class="py-20 bg-neutral-900 text-white" id="envivo">
+<Anchor id="live-stream" />
+<section class="py-20 bg-neutral-900 text-white">
   <div class="container mx-auto px-4 max-w-4xl text-center">
     <div class="inline-block p-4 rounded-full bg-white/10 mb-8 animate-pulse">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="w-12 h-12 text-primary-accent"
-        viewBox="0 0 256 256"
-        fill="currentColor"
-      >
-        <path
-          d="M40,48a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H160V48Zm56,96a24,24,0,1,1,24-24A24,24,0,0,1,96,144Z"
-          opacity="0.2"></path>
-        <path
-          d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,80H168V56h48ZM40,56H152V200H40ZM216,200H168V136h48v64ZM180,88a12,12,0,1,1,12,12A12,12,0,0,1,180,88Zm24,80a12,12,0,1,1-12-12A12,12,0,0,1,204,168Zm-68.25-2a39.76,39.76,0,0,0-17.19-23.34,32,32,0,1,0-45.12,0A39.84,39.84,0,0,0,56.25,166a8,8,0,0,0,15.5,4c2.64-10.25,13.06-18,24.25-18s21.62,7.73,24.25,18a8,8,0,1,0,15.5-4ZM80,120a16,16,0,1,1,16,16A16,16,0,0,1,80,120Z"
-          stroke="currentColor"
-          stroke-width="4"></path>
-      </svg>
+      <LiveStreamIcon aria-label="Icono de trasmisión en vivo" />
     </div>
 
-    <h2 class="font-display text-3xl md:text-4xl mb-6">Transmisión en vivo</h2>
+    <Title dark>Transmisión en vivo</Title>
 
-    <p class="text-neutral-300 text-lg mb-12 max-w-2xl mx-auto">
+    <Paragraph dark>
       Si no puedes acompañarnos físicamente, nos encantaría que fueras parte de
       nuestro gran día de manera virtual.
-    </p>
+    </Paragraph>
 
     <div
       class="bg-white/5 border border-white/10 rounded-xl p-8 mb-12 backdrop-blur-sm"
@@ -34,24 +26,25 @@
       <div class="grid md:grid-cols-3 gap-8 text-center">
         <div>
           <span
-            class="block text-sm text-neutral-400 uppercase tracking-wider mb-2"
+            class="font-body block text-sm text-neutral-400 uppercase tracking-wider mb-2"
             >Fecha</span
           >
-          <span class="font-display text-xl">Sábado, 25 de Octubre</span>
+          <span class="font-body text-xl">{weddingDateStringWithDay}</span>
         </div>
         <div>
           <span
-            class="block text-sm text-neutral-400 uppercase tracking-wider mb-2"
+            class="font-body block text-sm text-neutral-400 uppercase tracking-wider mb-2"
             >Hora</span
           >
-          <span class="font-display text-xl">4:00 PM (Hora CDMX)</span>
+          <!-- Hora de Venezuela -->
+          <span class="font-body text-xl">4:00 PM</span>
         </div>
         <div>
           <span
-            class="block text-sm text-neutral-400 uppercase tracking-wider mb-2"
+            class="font-body block text-sm text-neutral-400 uppercase tracking-wider mb-2"
             >Plataforma</span
           >
-          <span class="font-display text-xl">Zoom</span>
+          <span class="font-body text-xl">Zoom</span>
         </div>
       </div>
     </div>
