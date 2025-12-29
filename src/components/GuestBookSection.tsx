@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import { SigningModal } from "@/components/guestbook/SigningModal";
 import { TreeVisualization } from "@/components/guestbook/TreeVisualization";
+import { weddingDateString } from "@/constans/const";
 import signatureIcon from "@/assets/icons/signature-duotone.svg";
 import type { GuestbookMessage } from "@/types/guestbook";
 
@@ -20,7 +21,7 @@ export function GuestBookSection() {
     >
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-playfair font-bold mb-4">
+          <h2 className="text-4xl md:text-5xl font-display mb-4">
             Libro de invitados a la boda
           </h2>
           <p className="text-lg md:text-xl text-primary-accent font-semibold mb-2">
@@ -42,11 +43,11 @@ export function GuestBookSection() {
         <TreeVisualization initialMessages={messages} />
         <div className="flex items-center justify-center pointer-events-none mt-2">
           <div className="text-center w-fit py-4 px-8 rounded-lg bg-[#4a4235]/20">
-            <h3 className="text-2xl md:text-4xl font-playfair font-bold text-neutral-300">
-              Dorianni & Nick
+            <h3 className="text-2xl md:text-4xl font-display font-bold text-neutral-300">
+              Dorianni y Nick
             </h3>
             <p className="text-sm md:text-lg text-neutral-400 tracking-wider">
-              28 de Diciembre, 2024
+              {weddingDateString}
             </p>
           </div>
         </div>
