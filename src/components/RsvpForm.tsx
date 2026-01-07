@@ -1,32 +1,7 @@
-import { useState } from "react";
-import confetti from "canvas-confetti";
-import { useStore } from "@nanostores/react";
-
-import { authStore } from "@/stores/auth";
+import { useRsvpForm } from "@/hooks/useRsvpForm";
 
 export function RsvpForm() {
-  const auth = useStore(authStore);
-  const [status, setStatus] = useState<"PENDING" | "ACCEPTED" | "REJECTED">(
-    "PENDING"
-  );
-  const [loading, setLoading] = useState(false);
-
-  const handleRsvp = async (response: "ACCEPTED" | "REJECTED") => {
-    setLoading(true);
-    // Simulate API call
-    setTimeout(() => {
-      setStatus(response);
-      setLoading(false);
-      if (response === "ACCEPTED") {
-        confetti({
-          particleCount: 100,
-          spread: 70,
-          origin: { y: 0.6 },
-          colors: ["#40E0D0", "#98FB98", "#FFFFFF"],
-        });
-      }
-    }, 1000);
-  };
+  const { auth, status, loading, handleRsvp } = useRsvpForm();
 
   if (!auth) {
     return (
