@@ -14,28 +14,28 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^12.6.11",
-    "@astrojs/db": "^0.18.3",
-    "@astrojs/react": "^4.4.2",
-    "@astrojs/sitemap": "^3.6.0",
+    "@astrojs/cloudflare": "12.6.12",
+    "@astrojs/db": "0.18.3",
+    "@astrojs/react": "4.4.2",
+    "@astrojs/sitemap": "3.6.1",
     "@justinribeiro/lite-youtube": "1.9.0",
     "@midudev/tailwind-animations": "0.2.0",
-    "@nanostores/react": "^1.0.0",
-    "@tailwindcss/vite": "^4.1.17",
-    "@types/canvas-confetti": "^1.9.0",
-    "@types/react": "^19.2.6",
-    "@types/react-dom": "^19.2.3",
-    "astro": "^5.16.0",
-    "canvas-confetti": "^1.9.4",
+    "@nanostores/react": "1.0.0",
+    "@tailwindcss/vite": "4.1.18",
+    "@types/canvas-confetti": "1.9.0",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "astro": "5.16.7",
+    "canvas-confetti": "1.9.4",
     "jose": "6.1.3",
     "nanoid": "5.1.6",
-    "nanostores": "^1.1.0",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "tailwindcss": "^4.1.17"
+    "nanostores": "1.1.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "tailwindcss": "4.1.18"
   },
   "devDependencies": {
     "@playwright/test": "1.57.0",
-    "dotenv": "^17.2.3"
+    "dotenv": "17.2.3"
   }
 }

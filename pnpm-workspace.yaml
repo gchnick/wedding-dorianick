@@ -1,3 +1,7 @@
+packages:
+  - db/**
+  - src/**
+
 onlyBuiltDependencies:
   - esbuild
   - sharp
