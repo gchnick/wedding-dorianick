@@ -1,12 +1,7 @@
 import { atom } from "nanostores";
+import { decodeJwt } from "jose";
 
-export type JWTPayload = {
-  uid: string; // UUID v4 del invitado
-  name: string; // Nombre para mostrar (ej. "Familia González")
-  pax: number; // Max seats allowed
-  exp?: number; // Timestamp UNIX
-  iat?: number; // Issued At
-};
+import type { JWTPayload } from "@/types/auth";
 
 export const authStore = atom<JWTPayload | null>(null);
 
@@ -21,32 +16,8 @@ export function initAuth() {
   if (tokenFromUrl) {
     console.log("Token found in URL:", tokenFromUrl);
     try {
-      // Basic decoding to verify structure (Signature verification happens on backend)
-      const parts = tokenFromUrl.split(".");
-      if (parts.length !== 3) {
-        console.error(
-          "Invalid token structure. Expected 3 parts, got",
-          parts.length
-        );
-        // Don't return here, maybe it's a legacy token or just malformed, but let's try to handle or ignore
-      }
-
-      // The payload is the second part
-      const base64Url = parts[1] || tokenFromUrl.split(".")[1];
-      if (!base64Url) throw new Error("No payload found");
-
-      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-      const jsonPayload = decodeURIComponent(
-        window
-          .atob(base64)
-          .split("")
-          .map(function (c) {
-            return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-          })
-          .join("")
-      );
-
-      const payload: JWTPayload = JSON.parse(jsonPayload);
+      // Use jose to decode the token
+      const payload = decodeJwt(tokenFromUrl) as JWTPayload;
       console.log("Payload parsed:", payload);
 
       // 2. Store
@@ -65,21 +36,7 @@ export function initAuth() {
     const storedToken = sessionStorage.getItem(storageKey);
     if (storedToken) {
       try {
-        const parts = storedToken.split(".");
-        const base64Url = parts[1];
-        if (!base64Url) throw new Error("No payload found in stored token");
-
-        const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-        const jsonPayload = decodeURIComponent(
-          window
-            .atob(base64)
-            .split("")
-            .map(function (c) {
-              return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-            })
-            .join("")
-        );
-        const payload: JWTPayload = JSON.parse(jsonPayload);
+        const payload = decodeJwt(storedToken) as JWTPayload;
         authStore.set(payload);
       } catch (e) {
         console.error("Invalid stored token", e);
