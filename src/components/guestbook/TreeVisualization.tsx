@@ -1,43 +1,8 @@
 import { LeafTooltip } from "@/components/guestbook/LeafTooltip";
 import { useTreeVisualization } from "@/components/guestbook/hooks/useTreeVisualization";
-import type { GuestbookMessage, LeafPosition } from "@/types/guestbook";
+import type { LeafPosition } from "@/types/guestbook";
 
-type Props = {
-  initialMessages?: GuestbookMessage[];
-};
-
-// Predefined positions for leaves on the tree (percentage-based for responsiveness)
-const LEAF_SLOTS: LeafPosition[] = [
-  { x: 15, y: 65, rotation: -120 },
-  { x: 25, y: 64, rotation: -170 },
-  { x: 15, y: 60, rotation: -120 },
-  { x: 75, y: 64, rotation: 100 },
-  { x: 75, y: 60, rotation: 25 },
-  { x: 70, y: 57, rotation: 0 },
-  // TODO: Ajustar las posiciones de los mensajes
-  { x: 40, y: 38, rotation: -5 },
-  { x: 60, y: 40, rotation: 15 },
-  { x: 35, y: 45, rotation: 20 },
-  { x: 65, y: 47, rotation: -25 },
-  { x: 28, y: 50, rotation: -15 },
-  { x: 72, y: 52, rotation: 10 },
-  { x: 43, y: 55, rotation: 5 },
-  { x: 57, y: 55, rotation: -10 },
-  { x: 30, y: 60, rotation: 15 },
-  { x: 70, y: 62, rotation: -15 },
-  { x: 50, y: 65, rotation: 0 },
-  { x: 38, y: 68, rotation: 20 },
-  { x: 62, y: 70, rotation: -20 },
-  { x: 45, y: 73, rotation: 10 },
-];
-
-const LEAF_COLORS = {
-  turquoise: "#40E0D0",
-  mint: "#98FB98",
-  cream: "#FFFACD",
-};
-
-export function TreeVisualization({ initialMessages }: Props) {
+export function TreeVisualization() {
   const {
     containerRef,
     hoveredLeaf,
@@ -47,7 +12,38 @@ export function TreeVisualization({ initialMessages }: Props) {
     handleLeafHover,
     handleLeafLeave,
     setTooltipPosition,
-  } = useTreeVisualization({ initialMessages });
+  } = useTreeVisualization();
+
+  // Predefined positions for leaves on the tree (percentage-based for responsiveness)
+  const LEAF_SLOTS: LeafPosition[] = [
+    { x: 15, y: 65, rotation: -120 },
+    { x: 25, y: 64, rotation: -170 },
+    { x: 15, y: 60, rotation: -120 },
+    { x: 75, y: 64, rotation: 100 },
+    { x: 75, y: 60, rotation: 25 },
+    { x: 70, y: 57, rotation: 0 },
+    // TODO: Ajustar las posiciones de los mensajes
+    { x: 40, y: 38, rotation: -5 },
+    { x: 60, y: 40, rotation: 15 },
+    { x: 35, y: 45, rotation: 20 },
+    { x: 65, y: 47, rotation: -25 },
+    { x: 28, y: 50, rotation: -15 },
+    { x: 72, y: 52, rotation: 10 },
+    { x: 43, y: 55, rotation: 5 },
+    { x: 57, y: 55, rotation: -10 },
+    { x: 30, y: 60, rotation: 15 },
+    { x: 70, y: 62, rotation: -15 },
+    { x: 50, y: 65, rotation: 0 },
+    { x: 38, y: 68, rotation: 20 },
+    { x: 62, y: 70, rotation: -20 },
+    { x: 45, y: 73, rotation: 10 },
+  ];
+
+  const LEAF_COLORS = {
+    turquoise: "#40E0D0",
+    mint: "#98FB98",
+    cream: "#FFFACD",
+  };
 
   return (
     <div ref={containerRef} className="relative w-full max-w-4xl mx-auto">

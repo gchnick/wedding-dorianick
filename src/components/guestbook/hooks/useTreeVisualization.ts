@@ -1,14 +1,12 @@
 import { actions } from "astro:actions";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useStore } from "@nanostores/react";
 
+import { $guestbookMessages, setMessages } from "@/stores/guestbookStore";
 import type { GuestbookMessage } from "@/types/guestbook";
 
-type Props = {
-  initialMessages?: GuestbookMessage[];
-};
-
-export const useTreeVisualization = ({ initialMessages = [] }: Props) => {
-  const [messages, setMessages] = useState<GuestbookMessage[]>(initialMessages);
+export const useTreeVisualization = () => {
+  const messages = useStore($guestbookMessages);
   const [hoveredLeaf, setHoveredLeaf] = useState<number | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
   const [newLeafIndex, setNewLeafIndex] = useState<number | null>(null);
@@ -16,6 +14,9 @@ export const useTreeVisualization = ({ initialMessages = [] }: Props) => {
 
   useEffect(() => {
     const loadMessages = async () => {
+      // Only load if empty, or perhaps force refresh?
+      // Given it's a guest book, we usually want the latest but let's stick to the current logic
+      // but feeding the store.
       try {
         const { data } = await actions.guestbook.getGuestbookMessages();
         const messages = data?.messages || ([] as GuestbookMessage[]);
@@ -25,7 +26,9 @@ export const useTreeVisualization = ({ initialMessages = [] }: Props) => {
       }
     };
 
-    loadMessages();
+    if (messages.length === 0) {
+      loadMessages();
+    }
   }, []);
 
   const handleLeafHover = useCallback(

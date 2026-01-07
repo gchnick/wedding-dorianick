@@ -4,15 +4,9 @@ import { SigningModal } from "@/components/guestbook/SigningModal";
 import { TreeVisualization } from "@/components/guestbook/TreeVisualization";
 import { weddingDateString } from "@/constans/const";
 import signatureIcon from "@/assets/icons/signature-duotone.svg";
-import type { GuestbookMessage } from "@/types/guestbook";
 
 export function GuestBookSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [messages, setMessages] = useState<GuestbookMessage[]>([]);
-
-  const handleMessageAdded = (newMessage: GuestbookMessage) => {
-    setMessages((prev) => [...prev, newMessage]);
-  };
 
   return (
     <section
@@ -40,7 +34,7 @@ export function GuestBookSection() {
           </button>
         </div>
 
-        <TreeVisualization initialMessages={messages} />
+        <TreeVisualization />
         <div className="flex items-center justify-center pointer-events-none mt-2">
           <div className="text-center w-fit py-4 px-8 rounded-lg bg-[#4a4235]/20">
             <h3 className="text-2xl md:text-4xl font-display font-bold text-neutral-300">
@@ -57,7 +51,6 @@ export function GuestBookSection() {
       <SigningModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onMessageAdded={handleMessageAdded}
       />
     </section>
   );

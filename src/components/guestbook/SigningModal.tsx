@@ -1,70 +1,24 @@
-import { useState } from "react";
-import { actions } from "astro:actions";
-
+import { useSigningModal } from "@/components/guestbook/hooks/useSigningModal";
 import leafIcon from "@/assets/icons/leaf-duotone.svg";
 import signatureIcon from "@/assets/icons/signature-duotone.svg";
-import type { GuestbookMessage } from "@/types/guestbook";
 
 type Props = {
   isOpen: boolean;
   onClose: VoidFunction;
-  onMessageAdded: (message: GuestbookMessage) => void;
 };
 
-export function SigningModal({ isOpen, onClose, onMessageAdded }: Props) {
-  const [guestName, setGuestName] = useState("");
-  const [message, setMessage] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState("");
-
-  const characterCount = message.length;
-  const maxCharacters = 140;
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-
-    if (!guestName.trim()) {
-      setError("Por favor ingrese su nombre");
-      return;
-    }
-
-    if (!message.trim()) {
-      setError("Por favor ingrese un mensaje");
-      return;
-    }
-
-    if (message.length > maxCharacters) {
-      setError(`El mensaje no puede exceder ${maxCharacters} caracteres`);
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    try {
-      const result = await actions.guestbook.addGuestbookMessage({
-        guestName: guestName.trim(),
-        message: message.trim(),
-      });
-
-      if (result.data) {
-        onMessageAdded(result.data as GuestbookMessage);
-        setGuestName("");
-        setMessage("");
-        // Close modal after a short delay to show success
-        setTimeout(() => {
-          onClose();
-        }, 500);
-      }
-    } catch (err) {
-      console.error("Error submitting message:", err);
-      setError(
-        "Hubo un error al enviar tu mensaje. Por favor intenta de nuevo."
-      );
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+export function SigningModal({ isOpen, onClose }: Props) {
+  const {
+    characterCount,
+    error,
+    guestName,
+    handleSubmit,
+    isSubmitting,
+    maxCharacters,
+    message,
+    setGuestName,
+    setMessage,
+  } = useSigningModal({ onClose });
 
   if (!isOpen) return null;
 
@@ -101,7 +55,7 @@ export function SigningModal({ isOpen, onClose, onMessageAdded }: Props) {
               autoComplete="off"
               value={guestName}
               onChange={(e) => setGuestName(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-accent focus:border-transparent outline-none"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-accent focus:border-transparent outline-none text-neutral-dark font-body"
               placeholder="Ej: María González"
               disabled={isSubmitting}
             />
@@ -130,7 +84,7 @@ export function SigningModal({ isOpen, onClose, onMessageAdded }: Props) {
               autoComplete="off"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-accent focus:border-transparent outline-none resize-none"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-accent focus:border-transparent outline-none resize-none text-neutral-dark font-body"
               placeholder="Escribe tus mejores deseos..."
               rows={4}
               disabled={isSubmitting}
