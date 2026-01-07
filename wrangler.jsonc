@@ -11,6 +11,6 @@
     "enabled": true
   },
   "vars": {
-    "ASTRO_DB_REMOTE_URL": "libsql://insurance-globalinsurance.aws-us-west-2.turso.io"
+    "ASTRO_DB_REMOTE_URL": "libsql://wedding-dorianick-gchnick.aws-us-east-1.turso.io"
   }
 }
