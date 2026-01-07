@@ -41,13 +41,20 @@ export function RsvpForm() {
   }
 
   return (
-    <div id="rsvp" className="max-w-2xl mx-auto py-16 px-4">
+    <div
+      id="rsvp"
+      className="max-w-2xl mx-auto py-16 px-4"
+      aria-labelledby="rsvp-title"
+    >
       <div className="bg-white rounded-xl shadow-xl p-8 border-t-4 border-primary-accent">
         <div className="text-center mb-8">
           <span className="inline-block bg-secondary-accent/30 text-neutral-dark px-3 py-1 rounded-full text-sm font-semibold mb-4">
             RSVP
           </span>
-          <h2 className="font-display text-3xl md:text-4xl text-neutral-dark mb-2">
+          <h2
+            id="rsvp-title"
+            className="font-display text-3xl md:text-4xl text-neutral-dark mb-2"
+          >
             Hola, {auth.name}
           </h2>
           <p className="text-neutral-mid">
@@ -59,10 +66,14 @@ export function RsvpForm() {
           </p>
         </div>
 
-        <div className="flex flex-col gap-4 md:flex-row md:justify-center">
+        <div
+          className="flex flex-col gap-4 md:flex-row md:justify-center"
+          aria-live="polite"
+        >
           <button
             onClick={() => handleRsvp("ACCEPTED")}
             disabled={loading}
+            aria-busy={loading}
             className="bg-primary-accent hover:bg-primary-accent/90 text-white font-bold py-3 px-8 rounded-lg shadow-md transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? "Confirmando..." : "¡Sí, acepto!"}

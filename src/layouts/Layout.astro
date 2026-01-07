@@ -12,8 +12,7 @@ export type Props = {
 };
 
 const defaultTitle = "Save the Date: Dorianni & Nick";
-const defaultDescription =
-  `Acompáñanos a celebrar nuestro amor el ${weddingDateString} en Sabaneta, Barinas.`;
+const defaultDescription = `Acompáñanos a celebrar nuestro amor el ${weddingDateString} en Sabaneta, Barinas.`;
 
 let { title, description } = Astro.props;
 
@@ -62,7 +61,10 @@ const isInternalNavigation = previousPage?.includes(Astro.url.origin);
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content="/og-image.png" />
+    <meta property="og:locale" content="es_VE" />
+
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@gchnick" />
     <meta name="twitter:creator" content="@gchnick" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
@@ -73,36 +75,46 @@ const isInternalNavigation = previousPage?.includes(Astro.url.origin);
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "WeddingEvent",
-        "name": "Boda de Dorianni & Nick",
-        "url": "https://www.dorianick.com",
-        "description": `Acompáñanos a celebrar nuestro amor el ${weddingDateString} en Sabaneta, Barinas.`,
-        "startDate": weddingDate,
-        "eventStatus": "https://schema.org/EventScheduled",
-        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-        "location": {
-          "@type": "Place",
-          "name": "Sabaneta, Barinas",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Sabaneta",
-            "addressRegion": "Barinas",
-            "addressCountry": "VE"
-          }
-        },
-        "organizer": {
-          "@type": "Person",
-          "name": "Nick Galán",
-          "url": "https://twitter.com/gchnick"
-        },
-        "performer": [
+        "@graph": [
           {
-            "@type": "Person",
-            "name": "Dorianni"
+            "@type": "WeddingEvent",
+            "name": "Boda de Dorianni & Nick",
+            "url": "https://www.dorianick.com",
+            "description": "Acompáñanos a celebrar nuestro amor en Sabaneta, Barinas.",
+            "startDate": "2026-01-30T20:00:00Z",
+            "eventStatus": "https://schema.org/EventScheduled",
+            "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+            "location": {
+              "@type": "Place",
+              "name": "Salón del Reino de los testigos de Jehová",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Avenida Pedro Pérez Delgado frente a la INAVI",
+                "addressLocality": "Sabaneta",
+                "addressRegion": "Barinas",
+                "addressCountry": "VE"
+              }
+            },
+            "organizer": {
+              "@type": "Person",
+              "name": "Nick Galán",
+              "url": "https://twitter.com/gchnick"
+            },
+            "performer": [
+              {
+                "@type": "Person",
+                "name": "Dorianni"
+              },
+              {
+                "@type": "Person",
+                "name": "Nick"
+              }
+            ]
           },
           {
-            "@type": "Person",
-            "name": "Nick"
+            "@type": "WebSite",
+            "name": "Boda de Dorianni & Nick",
+            "url": "https://www.dorianick.com"
           }
         ]
       }

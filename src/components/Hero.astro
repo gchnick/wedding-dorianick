@@ -25,9 +25,13 @@ import Typography from "@/components/Typography.astro";
   <div
     class="relative z-10 text-center text-white px-4 max-w-4xl mx-auto flex flex-col items-center select-none"
   >
-    <Typography as="h2" variant="subtitle1" class="select-none"> ¡Nos casamos!</Typography>
+    <Typography as="h2" variant="subtitle1" class="select-none">
+      ¡Nos casamos!</Typography
+    >
 
-    <div class="couple-names-wrapper relative inline-block z-10 w-full select-none">
+    <div
+      class="couple-names-wrapper relative inline-block z-10 w-full select-none"
+    >
       <img
         src="/couple-names.svg"
         alt="Dorianni & Nick"
@@ -35,7 +39,8 @@ import Typography from "@/components/Typography.astro";
       />
       <img
         src="/couple-names.svg"
-        alt="Dorianni & Nick"
+        alt=""
+        aria-hidden="true"
         class="pulse absolute top-0 left-0 -z-10 inline-block invert brightness-0 filter opacity-50 blur-sm select-none"
       />
     </div>
