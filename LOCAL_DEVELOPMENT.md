@@ -6,7 +6,7 @@ Esta guía explica cómo trabajar con Astro DB en tu entorno de desarrollo local
 
 Astro DB usa **SQLite localmente** y **Turso en producción**:
 
-- **Desarrollo Local (`pnpm dev`)**: Astro DB crea automáticamente una base de datos SQLite en `.astro/content.db`. No necesitas conexión a internet ni configurar Turso.
+- **Desarrollo Local (`node --run dev`)**: Astro DB crea automáticamente una base de datos SQLite en `.astro/content.db`. No necesitas conexión a internet ni configurar Turso.
 - **Producción**: La aplicación desplegada usa Turso (libSQL remoto) configurado con las variables de entorno `ASTRO_DB_REMOTE_URL` y `ASTRO_DB_APP_TOKEN`.
 
 ## Comandos Disponibles
