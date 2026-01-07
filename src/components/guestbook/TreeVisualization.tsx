@@ -1,7 +1,5 @@
-import { useState, useEffect, useRef } from "react";
-import { actions } from "astro:actions";
-
 import { LeafTooltip } from "@/components/guestbook/LeafTooltip";
+import { useTreeVisualization } from "@/components/guestbook/hooks/useTreeVisualization";
 import type { GuestbookMessage, LeafPosition } from "@/types/guestbook";
 
 type Props = {
@@ -39,50 +37,17 @@ const LEAF_COLORS = {
   cream: "#FFFACD",
 };
 
-export function TreeVisualization({ initialMessages = [] }: Props) {
-  const [messages, setMessages] = useState<GuestbookMessage[]>(initialMessages);
-  const [hoveredLeaf, setHoveredLeaf] = useState<number | null>(null);
-  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
-  const [newLeafIndex, setNewLeafIndex] = useState<number | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const loadMessages = async () => {
-      try {
-        const { data: result } = await actions.guestbook.getGuestbookMessages();
-        if (result.success) {
-          setMessages(result.data as GuestbookMessage[]);
-        }
-      } catch (error) {
-        console.error("Error loading messages:", error);
-      }
-    };
-
-    if (initialMessages.length === 0) {
-      loadMessages();
-    }
-  }, []);
-
-  const handleLeafHover = (index: number, event: React.MouseEvent) => {
-    setHoveredLeaf(index);
-    setTooltipPosition({
-      x: event.clientX,
-      y: event.clientY,
-    });
-  };
-
-  const handleLeafLeave = () => {
-    setHoveredLeaf(null);
-  };
-
-  useEffect(() => {
-    if (newLeafIndex !== null) {
-      const timer = setTimeout(() => {
-        setNewLeafIndex(null);
-      }, 1000);
-      return () => clearTimeout(timer);
-    }
-  }, [newLeafIndex]);
+export function TreeVisualization({ initialMessages }: Props) {
+  const {
+    containerRef,
+    hoveredLeaf,
+    messages,
+    newLeafIndex,
+    tooltipPosition,
+    handleLeafHover,
+    handleLeafLeave,
+    setTooltipPosition,
+  } = useTreeVisualization({ initialMessages });
 
   return (
     <div ref={containerRef} className="relative w-full max-w-4xl mx-auto">
