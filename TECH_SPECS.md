@@ -4,13 +4,14 @@
 
 El sistema utiliza un enfoque "Passwordless" basado en tokens firmados.
 
+- **JSON Object Signing and Encryption:** [jose](https://github.com/panva/jose)
 - **Token Source:** URL Parameter (`?token=xyz...`).
 - **Algoritmo:** HS256.
 - **Payload Estructurado (Ejemplo):**
 
   ```json
   {
-    "uid": "uuid-invitado",
+    "uid": "nanoid-invitado",
     "name": "Familia González",
     "pax": 2, // Número máximo de asientos reservados
     "exp": 1735689600 // Fecha expiración (opcional)
@@ -21,7 +22,7 @@ El sistema utiliza un enfoque "Passwordless" basado en tokens firmados.
 
   ```ts
   type JWTPayload = {
-    uid: string; // UUID v4 del invitado
+    uid: string; // NanoID del invitado
     name: string; // Nombre para mostrar (ej. "Familia González")
     pax: number; // Max seats allowed (Validación crítica en Backend)
     exp?: number; // Timestamp UNIX (Opcional)
@@ -50,12 +51,14 @@ Implementar meta tag para evitar fugas de token en referers externos:
 
 ## 💾 Modelo de Datos (Simplificado)
 
+> **Nota sobre IDs:** Todos los identificadores (incluyendo `guests.id` y `guestbook_messages.id`) se generarán usando **NanoID** con una longitud de **5 caracteres** y el alfabeto: `0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ`.
+
 Tabla: `guests`
 
 ```sql
 CREATE TABLE guests (
-  -- ID: SQLite no tiene UUID nativo. Se almacena como TEXT (string de 36 caracteres).
-  -- La generación del UUID v4 debe hacerse en el Backend (Application-side generation).
+  -- ID: NanoID de 5 caracteres (0-9, A-Z).
+  -- La generación debe hacerse en el Backend (Application-side generation).
   id TEXT PRIMARY KEY NOT NULL,
 
   name TEXT NOT NULL,
@@ -96,7 +99,7 @@ CREATE TABLE guests (
   - _Opción B (Pre-definida):_ Tener 50-100 "slots" (coordenadas x,y) invisibles sobre las ramas. Al llegar un mensaje, ocupa el siguiente slot disponible.
 
 - **Schema de Base de Datos (Tabla: `guestbook_messages`):**
-  - `id`: UUID
+  - `id`: NanoID (5 chars, alfabeto personalizado)
   - `guest_name`: String
   - `message`: String (Text)
   - `leaf_color`: Enum/String (Para variar entre turquesa/menta/crema)
