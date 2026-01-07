@@ -46,7 +46,7 @@ export const server = {
 
       return {
         success: true,
-        data: newMessage,
+        message: newMessage,
       };
     },
   }),
