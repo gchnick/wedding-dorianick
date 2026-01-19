@@ -1,31 +1,11 @@
 import { test, expect } from "@playwright/test";
-import { SignJWT } from "jose";
 
 test.describe("Guestbook Flow", () => {
-  let token: string;
-
-  test.beforeAll(async () => {
-    const secretKey = process.env.JWT_SECRET;
-    if (!secretKey) {
-      throw new Error("JWT_SECRET is not defined in environment variables");
-    }
-    const secret = new TextEncoder().encode(secretKey);
-
-    // Generate token for the static test user (Test User from seed)
-    // ID: "TEST0", Name: "Usuario Prueba"
-    token = await new SignJWT({
-      uid: "TEST0",
-      name: "Usuario Prueba",
-      pax: 2,
-    })
-      .setProtectedHeader({ alg: "HS256" })
-      .setIssuedAt()
-      .sign(secret);
-  });
+  const guestId = "TEST0"; // ID from db/seed.ts
 
   test("Guest can sign the guestbook", async ({ page }) => {
-    // 1. Visit the page with the generated token
-    await page.goto(`/?token=${token}`);
+    // 1. Visit the page with the NanoID
+    await page.goto(`/?i=${guestId}`);
 
     // 2. Scroll to the Guest Book section
     const guestbookSection = page.locator("#guestbook");
