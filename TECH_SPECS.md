@@ -1,45 +1,27 @@
 # Technical Specifications
 
-## 🔐 Autenticación y Seguridad (JWT)
+## 🔐 Autenticación y Seguridad (NanoID)
 
-El sistema utiliza un enfoque "Passwordless" basado en tokens firmados.
+El sistema utiliza un enfoque "Passwordless" basado en la posesión de un link único.
 
-- **JSON Object Signing and Encryption:** [jose](https://github.com/panva/jose)
-- **Token Source:** URL Parameter (`?token=xyz...`).
-- **Algoritmo:** HS256.
-- **Payload Estructurado (Ejemplo):**
+- **Método:** Identificador Opaco (NanoID).
+- **Token Source:** URL Parameter (`?i=JDHC3`).
+- **Formato ID:** 5 caracteres, alfabeto `0-9, A-Z`.
+- **Validación:** Middleware de Astro intercepta requests, valida el ID contra la base de datos `guests`.
 
-  ```json
-  {
-    "uid": "nanoid-invitado",
-    "name": "Familia González",
-    "pax": 2, // Número máximo de asientos reservados
-    "exp": 1735689600 // Fecha expiración (opcional)
-  }
-  ```
+### 🛡️ Flujo de Autenticación
 
-  El agente debe tipar el payload de la siguiente manera:
-
-  ```ts
-  type JWTPayload = {
-    uid: string; // NanoID del invitado
-    name: string; // Nombre para mostrar (ej. "Familia González")
-    pax: number; // Max seats allowed (Validación crítica en Backend)
-    exp?: number; // Timestamp UNIX (Opcional)
-    iat?: number; // Issued At
-  };
-  ```
-
-- **Validación:** El backend debe verificar la firma del token antes de permitir la mutación (POST) del estado RSVP.
-
-### 🛡️ Protocolo de Seguridad Frontend (Extract, Store & Wipe)
-
-El frontend debe implementar la siguiente lógica al cargar la aplicación:
-
-1.  **Detectar:** Verificar existencia de `?token=` en `window.location.search`
-2.  **Validar & Almacenar:** Si existe, guardarlo en `sessionStorage` bajo la key `auth_token`.
-3.  **Limpiar (Wipe):** Ejecutar `window.history.replaceState()` inmediatamente para remover el token de la barra de direcciones sin recargar la página.
-4.  **Estado:** Si no hay token en URL ni en `sessionStorage`, ocultar el formulario de RSVP.
+1.  **Ingreso:** Usuario visita `/?i=JDHC3`.
+2.  **Middleware:**
+    - Detecta parámetro `i`.
+    - Consulta DB: `SELECT * FROM guests WHERE id = 'JDHC3'`.
+    - **Si es válido:**
+      - Crea cookie de sesión `guest_session` (HttpOnly, Secure, SameSite=Lax).
+      - Redirecciona a `/` (Limpia URL).
+    - **Si es inválido:** Redirecciona a `/` sin sesión (Muestra estado público).
+3.  **Persistencia:** La cookie `guest_session` mantiene al usuario logueado.
+4.  **Frontend:**
+    - Estado global (NanoStores / Context) se hidrata desde `Astro.locals` o verificando la cookie si es necesario.
 
 ### Cabeceras de Seguridad
 
@@ -94,7 +76,6 @@ CREATE TABLE guests (
 
 - **Frontend Rendering:** Se recomienda usar **SVG interactivo** o una librería de Canvas ligero (como Konva.js o simplemente CSS Positioning absoluto sobre un container relativo).
 - **Posicionamiento de Hojas:**
-
   - _Opción A (Aleatoria Controlada):_ El frontend calcula una posición aleatoria dentro de coordenadas predefinidas (zonas de ramas) para que no queden flotando en el aire.
   - _Opción B (Pre-definida):_ Tener 50-100 "slots" (coordenadas x,y) invisibles sobre las ramas. Al llegar un mensaje, ocupa el siguiente slot disponible.
 
