@@ -1,46 +1,33 @@
 import { atom } from "nanostores";
-import { decodeJwt } from "jose";
 
-import type { JWTPayload } from "@/types/auth";
+export type User = {
+  id: string;
+  name: string;
+  confirmedGuests: number;
+  maxGuests: number;
+  status: "PENDING" | "ACCEPTED" | "REJECTED";
+};
 
-export const authStore = atom<JWTPayload | null>(null);
+export const authStore = atom<User | null>(null);
 
 export function initAuth() {
-  if (typeof window === "undefined") return;
+  // In the new architecture, the server handles auth via cookie and middleware.
+  // The client store is hydrated from a global window variable or similar mechanism
+  // if we need it in client components.
+  // For now, we'll check for a meta tag or a global var injected by the layout.
 
-  const urlParams = new URLSearchParams(window.location.search);
-  const tokenFromUrl = urlParams.get("token");
-  const storageKey = "auth_token";
-
-  // 1. Detect & Extract
-  if (tokenFromUrl) {
-    console.log("Token found in URL:", tokenFromUrl);
-    try {
-      // Use jose to decode the token
-      const payload = decodeJwt(tokenFromUrl) as JWTPayload;
-      console.log("Payload parsed:", payload);
-
-      // 2. Store
-      sessionStorage.setItem(storageKey, tokenFromUrl);
-      authStore.set(payload);
-
-      // 3. Wipe (Security)
-      const newUrl = window.location.pathname;
-      window.history.replaceState({}, document.title, newUrl);
-      console.log("URL wiped");
-    } catch (e) {
-      console.error("Invalid token format", e);
-    }
-  } else {
-    // 4. Check Storage
-    const storedToken = sessionStorage.getItem(storageKey);
-    if (storedToken) {
+  // Example: <meta name="user-data" content='{...}' />
+  if (typeof window !== "undefined") {
+    const userMeta = document.querySelector('meta[name="user-data"]');
+    if (userMeta) {
       try {
-        const payload = decodeJwt(storedToken) as JWTPayload;
-        authStore.set(payload);
+        const content = userMeta.getAttribute("content");
+        if (content) {
+          const user = JSON.parse(content);
+          authStore.set(user);
+        }
       } catch (e) {
-        console.error("Invalid stored token", e);
-        sessionStorage.removeItem(storageKey);
+        console.error("Failed to parse user data", e);
       }
     }
   }

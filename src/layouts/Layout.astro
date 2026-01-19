@@ -71,6 +71,11 @@ const isInternalNavigation = previousPage?.includes(Astro.url.origin);
     <meta name="twitter:image" content="/og-image.png" />
     <meta name="twitter:image:alt" content={title} />
     <meta name="theme-color" content="#40e0d0" />
+    {
+      Astro.locals.user && (
+        <meta name="user-data" content={JSON.stringify(Astro.locals.user)} />
+      )
+    }
 
     <script type="application/ld+json">
       {
