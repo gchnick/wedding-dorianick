@@ -1,5 +1,6 @@
 ---
 import Title from "@/components/Title.astro";
+import screenshotTablet from "@/assets/screenshot-tablet.png";
 ---
 
 <section class="py-20 bg-neutral-50">
@@ -16,7 +17,7 @@ import Title from "@/components/Title.astro";
         params="controls=0&&rel=0&enablejsapi=1"
         posterquality="maxresdefault"
       >
-        <img slot="image" src="/src/assets/screenshot-tablet.png" />
+        <img slot="image" src={screenshotTablet.src} />
       </lite-youtube>
     </div>
 
