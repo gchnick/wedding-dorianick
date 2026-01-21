@@ -1,3 +1,4 @@
+import andresVelazquez from "@/assets/andres-velazquez.webp";
 import daiwyImage from "@/assets/daiwy.webp";
 import luisBarco from "@/assets/luis-barco.webp";
 import mariaLaya from "@/assets/maria-gabriela-laya.webp";
@@ -17,6 +18,10 @@ export const Girls = [
 
 export const Boys = [
   { name: "Luis Barco", role: "Amigo de la novia", photo: luisBarco },
-  { name: "Andrés Velázquez", role: "Amigo de la novia" },
+  {
+    name: "Andrés Velázquez",
+    role: "Amigo de la novia",
+    photo: andresVelazquez,
+  },
   { name: "Daiwy Rangel", role: "Amigo del novio", photo: daiwyImage },
 ];
