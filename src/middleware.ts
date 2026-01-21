@@ -1,5 +1,6 @@
 import { defineMiddleware } from "astro:middleware";
 import { db, eq, Guest } from "astro:db";
+import { createGuestToken, verifyGuestToken } from "./utils/jwt";
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const { url, cookies, locals, redirect } = context;
@@ -18,8 +19,16 @@ export const onRequest = defineMiddleware(async (context, next) => {
         .get();
 
       if (guest) {
-        // Valid guest found. Set session cookie.
-        cookies.set("guest_session", guest.id, {
+        // Valid guest found. Create JWT with guest data and set session cookie.
+        const token = await createGuestToken({
+          id: guest.id,
+          name: guest.name,
+          confirmedGuests: guest.confirmedGuests,
+          maxGuests: guest.maxGuests,
+          status: guest.status as "PENDING" | "ACCEPTED" | "REJECTED",
+        });
+
+        cookies.set("guest_session", token, {
           path: "/",
           httpOnly: true,
           secure: import.meta.env.PROD,
@@ -37,27 +46,23 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return redirect(url.toString(), 302);
   }
 
-  // 2. Check for session cookie
+  // 2. Check for session cookie with JWT
   const sessionCookie = cookies.get("guest_session");
   if (sessionCookie && sessionCookie.value) {
-    const guestId = sessionCookie.value;
-    // Verify guest exists (security check)
-    const guest = await db
-      .select()
-      .from(Guest)
-      .where(eq(Guest.id, guestId))
-      .get();
+    const token = sessionCookie.value;
+    // Verify JWT token and extract guest data (no DB query needed!)
+    const guestData = await verifyGuestToken(token);
 
-    if (guest) {
+    if (guestData) {
       locals.user = {
-        id: guest.id,
-        name: guest.name,
-        confirmedGuests: guest.confirmedGuests,
-        maxGuests: guest.maxGuests,
-        status: guest.status as "PENDING" | "ACCEPTED" | "REJECTED",
+        id: guestData.id,
+        name: guestData.name,
+        confirmedGuests: guestData.confirmedGuests,
+        maxGuests: guestData.maxGuests,
+        status: guestData.status,
       };
     } else {
-      // Invalid cookie (stale or forged user)
+      // Invalid or expired token
       cookies.delete("guest_session", { path: "/" });
     }
   }
