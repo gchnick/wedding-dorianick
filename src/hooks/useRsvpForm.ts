@@ -18,7 +18,7 @@ export const useRsvpForm = () => {
       setLoading(true);
 
       const { data, error } = await actions.guests.updateGuestStatus({
-        id: auth.uid,
+        id: auth.id,
         status: response,
       });
 
@@ -50,7 +50,7 @@ export const useRsvpForm = () => {
       if (!auth) return;
 
       setLoading(true);
-      const { data, error } = await actions.guests.getGuest({ id: auth.uid });
+      const { data, error } = await actions.guests.getGuest({ id: auth.id });
 
       if (data) {
         setStatus(data.status);
