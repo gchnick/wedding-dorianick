@@ -1,16 +1,18 @@
 {
+  "$schema": "./node_modules/wrangler/config-schema.json",
   "main": "dist/_worker.js/index.js",
   "name": "dorianick",
+  "preview_urls": true,
   "compatibility_date": "2025-11-25",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "assets": {
     "binding": "ASSETS",
-    "directory": "./dist"
+    "directory": "./dist",
   },
   "observability": {
-    "enabled": true
+    "enabled": true,
   },
   "vars": {
-    "ASTRO_DB_REMOTE_URL": "libsql://wedding-dorianick-gchnick.aws-us-east-1.turso.io"
-  }
+    "ASTRO_DB_REMOTE_URL": "libsql://wedding-dorianick-gchnick.aws-us-east-1.turso.io",
+  },
 }
