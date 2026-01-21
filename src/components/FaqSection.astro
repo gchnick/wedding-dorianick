@@ -1,0 +1,24 @@
+---
+import { FAQ_DATA } from "@/data/faqData";
+import { FaqAccordion } from "@/components/FaqAccordion";
+import Title from "@/components/Title.astro";
+import Anchor from "@/components/Anchor.astro";
+---
+
+<Anchor id="faq" />
+<section class="w-full py-12 md:py-24 lg:py-32 bg-background-alt">
+  <div class="container px-4 md:px-6 mx-auto flex flex-col items-center">
+    <Title> Preguntas Frecuentes</Title>
+    <p
+      class="text-center text-neutral-mid max-w-[800px] mb-8 text-lg font-body leading-relaxed text-balance"
+    >
+      Las bodas de los Testigos suelen ser ceremonias sencillas y dignas en las
+      que se pronuncia un breve discurso basado en la Biblia. Después de la
+      ceremonia, puede que haya una fiesta o celebración en la que tal vez se
+      sirva algo de comer.
+    </p>
+    <div class="w-full max-w-[800px] flex justify-center">
+      <FaqAccordion faqs={FAQ_DATA} client:visible />
+    </div>
+  </div>
+</section>

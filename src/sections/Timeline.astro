@@ -1,0 +1,75 @@
+---
+import { Image } from "astro:assets";
+
+import Anchor from "@/components/Anchor.astro";
+import iconCeremony from "@/assets/icons/kindom-hall.svg";
+import iconParty from "@/assets/icons/confetti-duotone.svg";
+import Title from "@/components/Title.astro";
+
+const events = [
+  {
+    time: "4:00 PM",
+    title: "Discurso de boda",
+    description: "Salón del Reino de los Testigos de Jehová",
+    icon: iconCeremony,
+  },
+  {
+    time: "5:00 PM",
+    title: "Fiesta",
+    description: "¡A bailar y comer!",
+    icon: iconParty,
+  },
+ 
+];
+---
+
+<Anchor id="itinerary" />
+{
+  Astro.locals.user && (
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4 max-w-4xl">
+        <Title>Itinerario</Title>
+
+        <div class="relative">
+          {/* Vertical Line */}
+          <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-neutral-200" />
+
+          <div class="space-y-12">
+            {events.map((event, index) => (
+              <div
+                class={`relative flex items-center justify-between ${index % 2 === 0 ? "flex-row-reverse" : ""}`}
+              >
+                {/* Content */}
+                <div class="w-5/12 text-center md:text-left">
+                  {" "}
+                  {/* Adjusted alignment for better mobile/desktop handling, might need refinement */}
+                  <div
+                    class={`p-6 bg-neutral-50 rounded-lg shadow-sm border border-neutral-100 ${index % 2 === 0 ? "md:text-left" : "md:text-right"}`}
+                  >
+                    <span class="font-body block text-primary-accent font-bold text-lg mb-1">
+                      {event.time}
+                    </span>
+                    <h3 class="font-body font-semibold text-xl text-neutral-500 mb-2">
+                      {event.title}
+                    </h3>
+                    <p class="font-body text-neutral-mid text-sm">
+                      {event.description}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Icon */}
+                <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center w-12 h-12 bg-white border-4 border-secondary-accent rounded-full z-10">
+                  <Image src={event.icon} alt={event.title} class="w-6 h-6" />
+                </div>
+
+                {/* Spacer */}
+                <div class="w-5/12" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}

@@ -1,7 +1,11 @@
 ---
-import { weddingDateStringWithDay } from "@/constans/const";
+import { weddingDate, weddingDateStringWithDay } from "@/constans/const";
 import Anchor from "@/components/Anchor.astro";
+import { Countdown } from "@/components/Countdown";
 import LiveStreamIcon from "@/assets/icons/live-stream.svg";
+
+const isEventStarted = Date.now() >= weddingDate.getTime();
+
 import Paragraph from "@/components/Paragraph.astro";
 import Title from "@/components/Title.astro";
 ---
@@ -23,7 +27,7 @@ import Title from "@/components/Title.astro";
     <div
       class="bg-white/5 border border-white/10 rounded-xl p-8 mb-12 backdrop-blur-sm"
     >
-      <div class="grid md:grid-cols-3 gap-8 text-center">
+      <div class="grid md:grid-cols-3 gap-8 text-center items-center">
         <div>
           <span
             class="font-body block text-sm text-neutral-400 uppercase tracking-wider mb-2"
@@ -36,7 +40,7 @@ import Title from "@/components/Title.astro";
             class="font-body block text-sm text-neutral-400 uppercase tracking-wider mb-2"
             >Hora</span
           >
-          <!-- Hora de Venezuela -->
+          {/* Hora de Venezuela */}
           <span class="font-body text-xl">4:00 PM</span>
         </div>
         <div>
@@ -49,22 +53,39 @@ import Title from "@/components/Title.astro";
       </div>
     </div>
 
-    <div class="flex flex-col items-center gap-4">
-      <a
-        href="https://jworg.zoom.us/my/laestacionpalmira?pwd=a58DOlNqAz8rgTl968LY9Nz0e9m7FL.1"
-        class="inline-block bg-primary-accent text-neutral-dark font-bold py-4 px-10 rounded-lg shadow-lg hover:bg-white transition-colors duration-300 transform hover:-translate-y-1"
-      >
-        Unirse a la Transmisión
-      </a>
+    {
+      isEventStarted ? (
+        <div class="flex flex-col items-center gap-4 animate-fade-in">
+          <a
+            href="https://jworg.zoom.us/j/82173062672?pwd=ZQOlZj4M41HYraQ8cvO9rJVOVNuPBq.1"
+            class="inline-block bg-primary-accent text-neutral-dark font-bold py-4 px-10 rounded-lg shadow-lg hover:bg-white transition-colors duration-300 transform hover:-translate-y-1"
+          >
+            Unirse a la Transmisión
+          </a>
 
-      <div class="mt-4 text-sm text-neutral-400">
-        <p>
-          ID de reunión: <span class="text-white font-mono">123 456 7890</span>
-        </p>
-        <p>
-          Código de acceso: <span class="text-white font-mono">BODA2025</span>
-        </p>
-      </div>
-    </div>
+          <div class="mt-4 text-sm text-neutral-400">
+            <p>
+              ID de reunión:{" "}
+              <span class="text-white font-mono">821 7306 2672</span>
+            </p>
+            <p>
+              Código de acceso: <span class="text-white font-mono">256875</span>
+            </p>
+          </div>
+        </div>
+      ) : (
+        <div class="flex flex-col items-center justify-center gap-8 py-8">
+          <p class="text-neutral-300 max-w-lg mx-auto">
+            Los datos de conexión estarán disponibles aquí cuando comience el
+            evento.
+          </p>
+          <Countdown
+            client:load
+            targetDate={weddingDate}
+            title="La transmisión comienza en"
+          />
+        </div>
+      )
+    }
   </div>
 </section>
