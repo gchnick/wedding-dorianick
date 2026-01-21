@@ -8,14 +8,20 @@ export type GuestPayload = {
   status: "PENDING" | "ACCEPTED" | "REJECTED";
 };
 
-const JWT_SECRET = import.meta.env.JWT_SECRET;
+/**
+ * Gets the JWT secret key, throwing an error if not configured
+ * This is called lazily to avoid errors at module load time
+ */
+function getSecretKey(): Uint8Array {
+  const JWT_SECRET = import.meta.env.JWT_SECRET;
 
-if (!JWT_SECRET) {
-  throw new Error("JWT_SECRET environment variable is not set");
+  if (!JWT_SECRET) {
+    throw new Error("JWT_SECRET environment variable is not set");
+  }
+
+  // Convert secret string to Uint8Array for jose
+  return new TextEncoder().encode(JWT_SECRET);
 }
-
-// Convert secret string to Uint8Array for jose
-const secretKey = new TextEncoder().encode(JWT_SECRET);
 
 /**
  * Creates a signed JWT token for a guest
@@ -23,6 +29,7 @@ const secretKey = new TextEncoder().encode(JWT_SECRET);
  * @returns Signed JWT string
  */
 export async function createGuestToken(guest: GuestPayload): Promise<string> {
+  const secretKey = getSecretKey();
   const token = await new SignJWT({
     id: guest.id,
     name: guest.name,
@@ -47,6 +54,7 @@ export async function verifyGuestToken(
   token: string
 ): Promise<GuestPayload | null> {
   try {
+    const secretKey = getSecretKey();
     const { payload } = await jwtVerify(token, secretKey);
 
     // Validate payload structure
@@ -71,8 +79,13 @@ export async function verifyGuestToken(
 
     return null;
   } catch (error) {
-    // Token invalid, expired, or malformed
-    console.error("JWT verification failed:", error);
+    // Token invalid, expired, malformed, or JWT_SECRET not configured
+    // Silently return null to allow the app to continue without authentication
+    if (error instanceof Error && error.message.includes("JWT_SECRET")) {
+      console.warn("JWT_SECRET not configured, authentication disabled");
+    } else {
+      console.error("JWT verification failed:", error);
+    }
     return null;
   }
 }
