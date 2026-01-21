@@ -11,7 +11,7 @@ export function LeafTooltip({ message, position, visible }: Props) {
 
   return (
     <div
-      className="absolute z-50 bg-white rounded-lg shadow-lg p-4 max-w-xs pointer-events-none"
+      className="fixed z-50 bg-white rounded-lg shadow-lg p-4 max-w-xs pointer-events-none"
       style={{
         left: `${position.x}px`,
         top: `${position.y}px`,

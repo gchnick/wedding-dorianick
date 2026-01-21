@@ -33,13 +33,14 @@ export const useTreeVisualization = () => {
 
   const handleLeafHover = useCallback(
     (index: number, event: React.MouseEvent) => {
+      const rect = event.currentTarget.getBoundingClientRect();
       setHoveredLeaf(index);
       setTooltipPosition({
-        x: event.clientX,
-        y: event.clientY,
+        x: rect.left + rect.width / 2,
+        y: rect.top,
       });
     },
-    []
+    [],
   );
 
   const handleLeafLeave = useCallback(() => {

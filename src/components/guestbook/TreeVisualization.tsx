@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { LeafTooltip } from "@/components/guestbook/LeafTooltip";
 import { useTreeVisualization } from "@/components/guestbook/hooks/useTreeVisualization";
 import type { LeafPosition } from "@/types/guestbook";
@@ -14,30 +15,50 @@ export function TreeVisualization() {
     setTooltipPosition,
   } = useTreeVisualization();
 
-  // Predefined positions for leaves on the tree (percentage-based for responsiveness)
-  const LEAF_SLOTS: LeafPosition[] = [
-    { x: 15, y: 65, rotation: -120 },
-    { x: 25, y: 64, rotation: -170 },
-    { x: 15, y: 60, rotation: -120 },
-    { x: 75, y: 64, rotation: 100 },
-    { x: 75, y: 60, rotation: 25 },
-    { x: 70, y: 57, rotation: 0 },
-    // TODO: Ajustar las posiciones de los mensajes
-    { x: 40, y: 38, rotation: -5 },
-    { x: 60, y: 40, rotation: 15 },
-    { x: 35, y: 45, rotation: 20 },
-    { x: 65, y: 47, rotation: -25 },
-    { x: 28, y: 50, rotation: -15 },
-    { x: 72, y: 52, rotation: 10 },
-    { x: 43, y: 55, rotation: 5 },
-    { x: 57, y: 55, rotation: -10 },
-    { x: 30, y: 60, rotation: 15 },
-    { x: 70, y: 62, rotation: -15 },
-    { x: 50, y: 65, rotation: 0 },
-    { x: 38, y: 68, rotation: 20 },
-    { x: 62, y: 70, rotation: -20 },
-    { x: 45, y: 73, rotation: 10 },
-  ];
+  // Generate positions for 200 leaves distributed in the tree canopy
+  const LEAF_SLOTS: LeafPosition[] = useMemo(() => {
+    const slots: LeafPosition[] = [];
+    // Seeded random for consistent result
+    let seed = 123;
+    const random = () => {
+      const x = Math.sin(seed++) * 10000;
+      return x - Math.floor(x);
+    };
+
+    // Define canopy clusters (ellipses)
+    // x, y: center percentage
+    // rx, ry: radius percentage
+    const clusters = [
+      { x: 25, y: 25, rx: 18, ry: 15 }, // Top Left cluster
+      { x: 15, y: 50, rx: 18, ry: 14 }, // Bottom Left cluster
+      { x: 80, y: 30, rx: 20, ry: 15 }, // Top Right cluster
+      { x: 80, y: 50, rx: 20, ry: 14 }, // Bottom Right cluster
+      { x: 50, y: 20, rx: 25, ry: 15 }, // Top cluster
+    ];
+
+    for (let i = 0; i < 200; i++) {
+      // Pick a random cluster
+      const cluster = clusters[Math.floor(random() * clusters.length)];
+
+      // Random point within ellipse using polar coordinates
+      const angle = random() * Math.PI * 2;
+      // Square root of random for uniform distribution within circle/ellipse
+      const r = Math.sqrt(random());
+
+      const x = cluster.x + r * Math.cos(angle) * cluster.rx;
+      const y = cluster.y + r * Math.sin(angle) * cluster.ry;
+
+      // Random rotation
+      const rotation = -30 + random() * 60; // -30 to 30 degrees variation
+
+      slots.push({
+        x: Math.max(5, Math.min(95, x)), // Clamp to 5-95%
+        y: Math.max(5, Math.min(95, y)),
+        rotation,
+      });
+    }
+    return slots;
+  }, []);
 
   const LEAF_COLORS = {
     turquoise: "#40E0D0",
@@ -75,14 +96,6 @@ export function TreeVisualization() {
               }}
               onMouseEnter={(e) => handleLeafHover(index, e)}
               onMouseLeave={handleLeafLeave}
-              onMouseMove={(e) => {
-                if (hoveredLeaf === index) {
-                  setTooltipPosition({
-                    x: e.clientX,
-                    y: e.clientY,
-                  });
-                }
-              }}
             >
               <svg
                 viewBox="0 0 341.45 566.51"
