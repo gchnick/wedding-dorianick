@@ -43,10 +43,10 @@ test.describe("Auth Visibility", () => {
     await page.goto("/?i=TEST0");
 
     // 2. Check Hero CTA
-    // Should NOT see "Transmisión por Zoom"
+    // Should NOT see "Transmisión en vivo"
     const zoomButton = page
       .locator("#hero-cta a")
-      .filter({ hasText: "Transmisión por Zoom" });
+      .filter({ hasText: "Transmisión en vivo" });
     await expect(zoomButton).not.toBeVisible();
 
     // Should NOT see "Confirmar Asistencia" (as per user request to hide it for auth)
