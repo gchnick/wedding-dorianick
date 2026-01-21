@@ -72,43 +72,37 @@ const sampleGuests = [
 ];
 
 // Datos de prueba para mensajes del guestbook
-const sampleMessages = [
-  {
-    id: generateId(),
-    guestName: "María García",
-    message: "¡Felicidades a los novios! Les deseamos mucha felicidad.",
-    leafColor: "turquoise",
-    createdAt: new Date(Date.now() - 86400000).toISOString(), // 1 día atrás
-  },
-  {
-    id: generateId(),
-    guestName: "Juan Pérez",
-    message: "Que vivan los novios! 🎉",
-    leafColor: "mint",
-    createdAt: new Date(Date.now() - 172800000).toISOString(), // 2 días atrás
-  },
-  {
-    id: generateId(),
-    guestName: "Laura Rodríguez",
-    message: "Muchas bendiciones para esta nueva etapa. ❤️",
-    leafColor: "cream",
-    createdAt: new Date(Date.now() - 259200000).toISOString(), // 3 días atrás
-  },
-  {
-    id: generateId(),
-    guestName: "Roberto Sánchez",
-    message: "Les deseo todo lo mejor en su matrimonio.",
-    leafColor: "turquoise",
-    createdAt: new Date(Date.now() - 345600000).toISOString(), // 4 días atrás
-  },
-  {
-    id: generateId(),
-    guestName: "Carmen Díaz",
-    message: "¡Qué emoción! Felicidades a la pareja. 💕",
-    leafColor: "mint",
-    createdAt: new Date(Date.now() - 432000000).toISOString(), // 5 días atrás
-  },
-];
+// Generar 200 mensajes de prueba
+const generateSampleMessages = () => {
+  const messages = [];
+  const colors = ["turquoise", "mint", "cream"];
+  const simpleMessages = [
+    "¡Felicidades!",
+    "Que sean muy felices",
+    "Los mejores deseos",
+    "Viva el amor",
+    "Bendiciones",
+    "Enhorabuena",
+    "Hermosa boda",
+    "Gracias por invitarnos",
+  ];
+
+  for (let i = 0; i < 200; i++) {
+    messages.push({
+      id: generateId(),
+      guestName: `Invitado ${i + 1}`,
+      message:
+        simpleMessages[Math.floor(Math.random() * simpleMessages.length)],
+      leafColor: colors[Math.floor(Math.random() * colors.length)],
+      createdAt: new Date(
+        Date.now() - Math.floor(Math.random() * 1000000000),
+      ).toISOString(),
+    });
+  }
+  return messages;
+};
+
+const sampleMessages = generateSampleMessages();
 
 export default async function seed() {
   console.log("🌱 Iniciando seed de la base de datos...");
@@ -140,7 +134,7 @@ export default async function seed() {
         sampleGuests.filter((g) => g.status === "PENDING").length
       } pendientes, ${
         sampleGuests.filter((g) => g.status === "DECLINED").length
-      } rechazados`
+      } rechazados`,
     );
   } catch (error) {
     console.error("❌ Error durante el seed:", error);
