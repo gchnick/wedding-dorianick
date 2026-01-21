@@ -1,10 +1,15 @@
 ---
 import { weddingDate, weddingDateStringWithDay } from "@/constans/const";
 import Anchor from "@/components/Anchor.astro";
-import { Countdown } from "@/components/Countdown";
 import LiveStreamIcon from "@/assets/icons/live-stream.svg";
+import { LiveStreamCredentials } from "@/components/LiveStreamCredentials";
 
-const isEventStarted = Date.now() >= weddingDate.getTime();
+// Calcular 24 horas antes del evento (en milisegundos)
+const TWENTY_FOUR_HOURS_MS = 24 * 60 * 60 * 1000;
+const credentialsAvailableDate = new Date(weddingDate.getTime() - TWENTY_FOUR_HOURS_MS);
+
+// Verificar si las credenciales están disponibles (SSR - se ejecuta en el servidor)
+const areCredentialsAvailable = Date.now() >= credentialsAvailableDate.getTime();
 
 import Paragraph from "@/components/Paragraph.astro";
 import Title from "@/components/Title.astro";
@@ -22,6 +27,10 @@ import Title from "@/components/Title.astro";
     <Paragraph dark>
       Si no puedes acompañarnos físicamente, nos encantaría que fueras parte de
       nuestro gran día de manera virtual.
+    </Paragraph>
+
+    <Paragraph dark class="text-sm text-neutral-400 italic mb-4">
+      Las credenciales de acceso estarán disponibles 24 horas antes del evento.
     </Paragraph>
 
     <div
@@ -53,39 +62,10 @@ import Title from "@/components/Title.astro";
       </div>
     </div>
 
-    {
-      isEventStarted ? (
-        <div class="flex flex-col items-center gap-4 animate-fade-in">
-          <a
-            href="https://jworg.zoom.us/j/82173062672?pwd=ZQOlZj4M41HYraQ8cvO9rJVOVNuPBq.1"
-            class="inline-block bg-primary-accent text-neutral-dark font-bold py-4 px-10 rounded-lg shadow-lg hover:bg-white transition-colors duration-300 transform hover:-translate-y-1"
-          >
-            Unirse a la Transmisión
-          </a>
-
-          <div class="mt-4 text-sm text-neutral-400">
-            <p>
-              ID de reunión:{" "}
-              <span class="text-white font-mono">821 7306 2672</span>
-            </p>
-            <p>
-              Código de acceso: <span class="text-white font-mono">256875</span>
-            </p>
-          </div>
-        </div>
-      ) : (
-        <div class="flex flex-col items-center justify-center gap-8 py-8">
-          <p class="text-neutral-300 max-w-lg mx-auto">
-            Los datos de conexión estarán disponibles aquí cuando comience el
-            evento.
-          </p>
-          <Countdown
-            client:load
-            targetDate={weddingDate}
-            title="La transmisión comienza en"
-          />
-        </div>
-      )
-    }
+    <LiveStreamCredentials
+      client:load
+      credentialsAvailableDate={credentialsAvailableDate}
+      initialAreCredentialsAvailable={areCredentialsAvailable}
+    />
   </div>
 </section>
