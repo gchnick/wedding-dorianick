@@ -8,11 +8,13 @@ type Props = {
 };
 
 const { name, role, photo } = Astro.props;
+const avatarId = `avatar-${Math.random().toString(36).substr(2, 9)}`;
 ---
 
 <div class="flex flex-col items-center group">
   <div
-    class="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-md mb-4 overflow-hidden border-2 border-transparent group-hover:border-primary-accent transition-colors"
+    class="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-md mb-4 overflow-hidden border-2 border-transparent group-hover:border-primary-accent transition-colors cursor-pointer"
+    data-avatar-trigger={photo ? avatarId : undefined}
   >
     {
       photo ? (
@@ -27,3 +29,106 @@ const { name, role, photo } = Astro.props;
   <h4 class="font-bold text-neutral-dark">{name}</h4>
   <p class="text-sm text-neutral-mid">{role}</p>
 </div>
+
+{
+  photo && (
+    <div
+      id={avatarId}
+      class="fixed inset-0 bg-black/80 z-50 hidden items-center justify-center p-4"
+      data-avatar-modal
+    >
+      <div class="relative max-w-4xl max-h-[90vh] w-full h-full flex items-center justify-center">
+        <button
+          class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center text-neutral-dark hover:bg-neutral-100 transition-colors shadow-lg z-10"
+          data-avatar-close={avatarId}
+          aria-label="Cerrar"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+        <Image
+          src={photo}
+          alt={name}
+          class="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+        />
+      </div>
+    </div>
+  )
+}
+
+<script>
+  function setupAvatarModals() {
+    // Abrir modal
+    document.querySelectorAll("[data-avatar-trigger]").forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        const modalId = trigger.getAttribute("data-avatar-trigger");
+        if (modalId) {
+          const modal = document.getElementById(modalId);
+          if (modal) {
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+            document.body.style.overflow = "hidden";
+          }
+        }
+      });
+    });
+
+    // Cerrar modal con botón X
+    document.querySelectorAll("[data-avatar-close]").forEach((closeBtn) => {
+      closeBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const modalId = closeBtn.getAttribute("data-avatar-close");
+        if (modalId) {
+          const modal = document.getElementById(modalId);
+          if (modal) {
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+            document.body.style.overflow = "";
+          }
+        }
+      });
+    });
+
+    // Cerrar modal al hacer clic en el fondo
+    document.querySelectorAll("[data-avatar-modal]").forEach((modal) => {
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          modal.classList.add("hidden");
+          modal.classList.remove("flex");
+          document.body.style.overflow = "";
+        }
+      });
+    });
+
+    // Cerrar modal con tecla Escape
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        document.querySelectorAll("[data-avatar-modal]").forEach((modal) => {
+          if (!modal.classList.contains("hidden")) {
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+            document.body.style.overflow = "";
+          }
+        });
+      }
+    });
+  }
+
+  // Ejecutar al cargar la página
+  setupAvatarModals();
+
+  // Ejecutar después de navegación de Astro (para aplicaciones con transiciones de vista)
+  document.addEventListener("astro:page-load", setupAvatarModals);
+</script>
