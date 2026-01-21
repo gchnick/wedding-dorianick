@@ -1,9 +1,7 @@
 ---
 import { Image } from "astro:assets";
 
-import { Countdown } from "@/components/Countdown";
-import { weddingDate } from "@/constans/const";
-import Buttom from "@/components/Buttom.astro";
+import { HeroButtons } from "@/components/HeroButtons";
 import coupleMainPhoto from "@/assets/couple-main-photographic-2.webp";
 import Paragraph from "@/components/Paragraph.astro";
 import Typography from "@/components/Typography.astro";
@@ -51,19 +49,11 @@ import Typography from "@/components/Typography.astro";
       Celebra con nosotros este momento tan especial.
     </Paragraph>
 
-    <div id="hero-cta" class="flex flex-col items-center gap-8">
-      <Countdown
+    <div id="hero-cta">
+      <HeroButtons
         client:idle
-        targetDate={weddingDate}
-        title="Faltan"
-        className="scale-90 md:scale-100"
+        title="30 de enero de 2026 - Faltan"
       />
-      <!-- CTA will be injected here or handled by RsvpForm below -->
-      {
-        !Astro.locals.user && (
-          <Buttom href="#live-stream" text="Transmisión en vivo" />
-        )
-      }
     </div>
   </div>
 
