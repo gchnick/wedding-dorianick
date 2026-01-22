@@ -8,7 +8,7 @@ import { authStore } from "@/stores/auth";
 type Props = {
   title?: string;
   className?: string;
-}
+};
 
 export function HeroButtons({ title, className = "" }: Props) {
   const auth = useStore(authStore);
@@ -30,8 +30,11 @@ export function HeroButtons({ title, className = "" }: Props) {
 
   // Check if user is authenticated and has PENDING status
   const showRsvpButton = auth && auth.status === "PENDING";
+  console.log("🚀 ~ HeroButtons ~ auth:", auth);
+  console.log("🚀 ~ HeroButtons ~ showRsvpButton:", showRsvpButton);
   // Show live stream button only for unauthenticated users
   const showLiveStreamButton = !auth;
+  console.log("🚀 ~ HeroButtons ~ showLiveStreamButton:", showLiveStreamButton);
 
   return (
     <div className={`flex flex-col items-center gap-8 ${className}`}>
@@ -72,7 +75,7 @@ export function HeroButtons({ title, className = "" }: Props) {
           )}
           <a
             href="#guestbook"
-            className="font-body inline-block border-2 border-white/50 bg-white/10 backdrop-blur-sm text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-white/20 transition-colors duration-300"
+            className="font-body inline-block outline-2 outline-white/50 bg-white/10 backdrop-blur-sm text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-white/20 transition-colors duration-300"
           >
             Firmar libro de invitados
           </a>
