@@ -6,17 +6,20 @@ import { LiveStreamCredentials } from "@/components/LiveStreamCredentials";
 
 // Calcular 24 horas antes del evento (en milisegundos)
 const TWENTY_FOUR_HOURS_MS = 24 * 60 * 60 * 1000;
-const credentialsAvailableDate = new Date(weddingDate.getTime() - TWENTY_FOUR_HOURS_MS);
+const credentialsAvailableDate = new Date(
+  weddingDate.getTime() - TWENTY_FOUR_HOURS_MS,
+);
 
 // Verificar si las credenciales están disponibles (SSR - se ejecuta en el servidor)
-const areCredentialsAvailable = Date.now() >= credentialsAvailableDate.getTime();
+const areCredentialsAvailable =
+  Date.now() >= credentialsAvailableDate.getTime();
 
 import Paragraph from "@/components/Paragraph.astro";
 import Title from "@/components/Title.astro";
 ---
 
-<Anchor id="live-stream" />
 <section class="py-20 bg-neutral-900 text-white">
+  <Anchor id="live-stream" />
   <div class="container mx-auto px-4 max-w-4xl text-center">
     <div class="inline-block p-4 rounded-full bg-white/10 mb-8 animate-pulse">
       <LiveStreamIcon aria-label="Icono de trasmisión en vivo" />
