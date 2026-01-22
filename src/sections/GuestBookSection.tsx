@@ -19,8 +19,8 @@ export function GuestBookSection() {
   }, [enableSigningTime]);
 
   return (
-    <Anchor id="guestbook">
-      <section className="py-16 md:py-24 bg-neutral-900 text-white">
+    <section className="py-16 md:py-24 bg-neutral-900 text-white">
+      <Anchor id="guestbook">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-display mb-4">
@@ -80,7 +80,7 @@ export function GuestBookSection() {
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
         />
-      </section>
-    </Anchor>
+      </Anchor>
+    </section>
   );
 }
