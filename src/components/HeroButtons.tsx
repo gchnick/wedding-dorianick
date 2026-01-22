@@ -30,11 +30,8 @@ export function HeroButtons({ title, className = "" }: Props) {
 
   // Check if user is authenticated and has PENDING status
   const showRsvpButton = auth && auth.status === "PENDING";
-  console.log("🚀 ~ HeroButtons ~ auth:", auth);
-  console.log("🚀 ~ HeroButtons ~ showRsvpButton:", showRsvpButton);
   // Show live stream button only for unauthenticated users
   const showLiveStreamButton = !auth;
-  console.log("🚀 ~ HeroButtons ~ showLiveStreamButton:", showLiveStreamButton);
 
   return (
     <div className={`flex flex-col items-center gap-8 ${className}`}>
