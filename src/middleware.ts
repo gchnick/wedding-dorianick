@@ -1,6 +1,7 @@
 import { defineMiddleware } from "astro:middleware";
 import { db, eq, Guest } from "astro:db";
 import { createGuestToken, verifyGuestToken } from "./utils/jwt";
+import { authStore } from "@/stores/auth";
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const { url, cookies, locals, redirect } = context;
@@ -61,6 +62,9 @@ export const onRequest = defineMiddleware(async (context, next) => {
         maxGuests: guestData.maxGuests,
         status: guestData.status,
       };
+
+      // Initialize authStore with user data
+      authStore.set(locals.user);
     } else {
       // Invalid or expired token
       cookies.delete("guest_session", { path: "/" });
