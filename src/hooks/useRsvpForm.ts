@@ -7,7 +7,6 @@ import { authStore } from "@/stores/auth";
 
 export const useRsvpForm = () => {
   const auth = useStore(authStore);
-  console.log("🚀 ~ useRsvpForm ~ auth:", auth)
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<"PENDING" | "ACCEPTED" | "REJECTED">(
     "PENDING"
