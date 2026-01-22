@@ -5,7 +5,7 @@ import { Countdown } from "@/components/Countdown";
 type Props = {
   credentialsAvailableDate: Date | number | string;
   initialAreCredentialsAvailable: boolean;
-}
+};
 
 export function LiveStreamCredentials({
   credentialsAvailableDate,
@@ -14,7 +14,7 @@ export function LiveStreamCredentials({
   // Asegurar que credentialsAvailableDate sea un objeto Date
   const targetDate = new Date(credentialsAvailableDate);
   const [areCredentialsAvailable, setAreCredentialsAvailable] = useState(
-    initialAreCredentialsAvailable
+    initialAreCredentialsAvailable,
   );
 
   if (areCredentialsAvailable) {
@@ -33,7 +33,8 @@ export function LiveStreamCredentials({
             <span className="text-white font-mono">821 7306 2672</span>
           </p>
           <p>
-            Código de acceso: <span className="text-white font-mono">256875</span>
+            Código de acceso:{" "}
+            <span className="text-white font-mono">256875</span>
           </p>
         </div>
       </div>
@@ -42,9 +43,6 @@ export function LiveStreamCredentials({
 
   return (
     <div className="flex flex-col items-center justify-center gap-8 py-8">
-      <p className="text-neutral-300 max-w-lg mx-auto text-pretty">
-        Las credenciales de acceso estarán disponibles 24 horas antes del evento.
-      </p>
       <Countdown
         targetDate={targetDate}
         onComplete={() => setAreCredentialsAvailable(true)}
