@@ -7,7 +7,7 @@ import yordalisImage from "@/assets/yordalis.webp";
 
 export const weddingDateStringWithDay = "Viernes, 30 de enero de 2026";
 export const weddingDateString = "30 de enero de 2026";
-export const weddingDate = new Date("2026-01-30T20:00:00Z");
+export const weddingDate = new Date("2026-01-30T22:30:00Z");
 
 // Bridal Party
 export const Girls = [
